@@ -1,0 +1,23 @@
+body {
+    font: 120% Calibri;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+a:link {
+    color: #008ed5;
+    text-decoration: underline;
+
+}
+
+a:visited {
+    color: #41046e;
+    text-decoration: underline;
+}
+
+
+

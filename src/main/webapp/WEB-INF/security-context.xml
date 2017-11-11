@@ -1,0 +1,42 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+             http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+             http://www.springframework.org/schema/security
+             http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+
+    <http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/" access="permitAll"/>
+        <intercept-url pattern="/index" access="permitAll"/>
+        <intercept-url pattern="/choosepatient" access="hasAnyRole('ROLE_DOCTOR', 'ROLE_NURSE')"/>
+        <intercept-url pattern="/deldrug" access="hasAnyRole('ROLE_DOCTOR', 'ROLE_NURSE')"/>
+        <intercept-url pattern="/delmedprocedure" access="hasAnyRole('ROLE_DOCTOR', 'ROLE_NURSE')"/>
+        <intercept-url pattern="/nursemenu" access="hasRole('ROLE_NURSE')"/>
+        <intercept-url pattern="/doctormenu" access="hasRole('ROLE_DOCTOR')"/>
+        <intercept-url pattern="/addpatient" access="hasRole('ROLE_DOCTOR')"/>
+        <intercept-url pattern="/adddiagnosis" access="hasRole('ROLE_DOCTOR')"/>
+        <intercept-url pattern="/adddrug" access="hasRole('ROLE_DOCTOR')"/>
+        <intercept-url pattern="/addmedprocedure" access="hasRole('ROLE_DOCTOR')"/>
+        <intercept-url pattern="/addsurgery" access="hasRole('ROLE_DOCTOR')"/>
+        <intercept-url pattern="/deldiagnosis" access="hasRole('ROLE_DOCTOR')"/>
+        <intercept-url pattern="/delsurgery" access="hasRole('ROLE_DOCTOR')"/>
+        <intercept-url pattern="/delpatient" access="hasRole('ROLE_DOCTOR')"/>
+        <form-login login-page="/index"
+                    username-parameter="login"
+                    password-parameter="password"
+                    authentication-success-handler-ref="authenticationSuccessHandler"
+                    authentication-failure-url="/authfail"/>
+        <logout logout-success-url="/logout" invalidate-session="true"/>
+        <csrf/>
+    </http>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="authenticationService"/>
+    </authentication-manager>
+
+    <beans:bean id="authenticationService" class="by.training.nc.dev5.clinic.security.AuthenticationService"/>
+    <beans:bean id="authenticationSuccessHandler" class="by.training.nc.dev5.clinic.security.AuthenticationSuccessHandlerImpl"/>
+
+</beans:beans>

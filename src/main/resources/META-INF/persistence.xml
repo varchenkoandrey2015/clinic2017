@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+    <persistence-unit name="AV-Clinic">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>by.training.nc.dev5.clinic.entities.prescribings.Diagnosis</class>
+        <class>by.training.nc.dev5.clinic.entities.prescribings.Drug</class>
+        <class>by.training.nc.dev5.clinic.entities.Patient</class>
+        <class>by.training.nc.dev5.clinic.entities.prescribings.MedProcedure</class>
+        <class>by.training.nc.dev5.clinic.entities.prescribings.Surgery</class>
+        <class>by.training.nc.dev5.clinic.entities.User</class>
+
+        <properties>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/av-clinic"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="toor"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+</persistence>
