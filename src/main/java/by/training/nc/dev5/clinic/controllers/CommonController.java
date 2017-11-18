@@ -83,17 +83,13 @@ public class CommonController {
         try{
             if (patientId != null) {
                 User user = userService.getByLogin(principalUtil.getPrincipal().getLogin());
-                String patientName = patientService.getById(Integer.valueOf(patientId)).getName();
+                Patient patient = patientService.getById(Integer.valueOf(patientId));
                 session.setAttribute(Parameters.PATIENT_ID, patientId);
-                session.setAttribute(Parameters.PATIENT_NAME, patientName);
-                List<Diagnosis> diagnosises = diagnosisService.getByPatient(patientService.getById(Integer.valueOf(patientId)));
-                List<Drug> drugs = drugService.getByPatient(patientService.getById(Integer.valueOf(patientId)));
-                List<MedProcedure> medProcedures = medProcedureService.getByPatient(patientService.getById(Integer.valueOf(patientId)));
-                List<Surgery> surgeries = surgeryService.getByPatient(patientService.getById(Integer.valueOf(patientId)));
-                session.setAttribute(Parameters.DIAGNOSIS_LIST, diagnosises);
-                session.setAttribute(Parameters.DRUGS_LIST, drugs);
-                session.setAttribute(Parameters.MEDPROCEDURES_LIST, medProcedures);
-                session.setAttribute(Parameters.SURGERIES_LIST, surgeries);
+                session.setAttribute(Parameters.PATIENT_NAME, patient.getName());
+                session.setAttribute(Parameters.DIAGNOSIS_LIST, diagnosisService.getByPatient(patient));
+                session.setAttribute(Parameters.DRUGS_LIST, drugService.getByPatient(patient));
+                session.setAttribute(Parameters.MEDPROCEDURES_LIST, medProcedureService.getByPatient(patient));
+                session.setAttribute(Parameters.SURGERIES_LIST, surgeryService.getByPatient(patient));
                 if (user.getAccessLevel().equals(AccessLevels.DOCTOR)){
                     return "redirect:/doctormenu";
                 } else{

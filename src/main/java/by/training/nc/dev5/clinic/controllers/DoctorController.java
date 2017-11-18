@@ -108,7 +108,7 @@ public class DoctorController {
                     Diagnosis diagnosis = new Diagnosis();
                     Patient patient = patientService.getById(patientId);
                     diagnosis.setName(name);
-                    diagnosis.setPatient(patient);
+                    //diagnosis.setPatient(patient);
                     diagnosisService.add(diagnosis);
                     List<Diagnosis> list = diagnosisService.getByPatient(patient);
                     session.setAttribute(Parameters.DIAGNOSIS_LIST, list);
@@ -145,7 +145,7 @@ public class DoctorController {
                     Drug drug = new Drug();
                     Patient patient = patientService.getById(patientId);
                     drug.setName(name);
-                    drug.setPatient(patient);
+                    //drug.setPatient(patient);
                     drugService.add(drug);
                     List<Drug> list = drugService.getByPatient(patient);
                     session.setAttribute(Parameters.DRUGS_LIST, list);
@@ -182,7 +182,7 @@ public class DoctorController {
                     MedProcedure medProcedure = new MedProcedure();
                     Patient patient = patientService.getById(patientId);
                     medProcedure.setName(name);
-                    medProcedure.setPatient(patient);
+                    //medProcedure.setPatient(patient);
                     medProcedureService.add(medProcedure);
                     List<MedProcedure> list = medProcedureService.getByPatient(patient);
                     session.setAttribute(Parameters.MEDPROCEDURES_LIST, list);
@@ -219,7 +219,7 @@ public class DoctorController {
                     Surgery surgery = new Surgery();
                     Patient patient = patientService.getById(patientId);
                     surgery.setName(name);
-                    surgery.setPatient(patient);
+                    //surgery.setPatient(patient);
                     surgeryService.add(surgery);
                     List<Surgery> list = surgeryService.getByPatient(patient);
                     session.setAttribute(Parameters.SURGERIES_LIST, list);

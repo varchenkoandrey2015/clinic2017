@@ -14,7 +14,7 @@
             </td>
             <td style="padding: 5px;">
                 <a href="?locale=ru">
-                    <img src="${pageContext.request.contextPath}/resources/img/ru_locale_64.png"
+                    <img src="${pageContext.request.contextPath}/resources/img/ru.png"
                          height="20"
                          width="20"
                          style="display:block;"
@@ -23,7 +23,7 @@
             </td>
             <td style="padding: 5px;">
                 <a href="?locale=en">
-                    <img src="${pageContext.request.contextPath}/resources/img/en_locale_64.png"
+                    <img src="${pageContext.request.contextPath}/resources/img/gb.png"
                          height="20"
                          width="20"
                          style="display:block;"
