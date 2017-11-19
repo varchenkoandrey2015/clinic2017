@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface ISurgeryDAO extends IDAO<Surgery>{
     List<Surgery> getByPatient(Patient patient)throws DAOException;
+    List<Surgery> getAll()throws DAOException;
 }

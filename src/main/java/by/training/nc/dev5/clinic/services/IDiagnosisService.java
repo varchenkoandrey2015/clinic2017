@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface IDiagnosisService extends IService<Diagnosis>{
     List<Diagnosis> getByPatient(Patient patient)throws DAOException;
+    List<Diagnosis> getAll()throws DAOException;
 }

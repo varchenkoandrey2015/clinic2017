@@ -26,11 +26,21 @@ public class SurgeryMySQLDAO extends AbstractDAO<Surgery> implements ISurgeryDAO
         try {
             EntityManager entityManager = HibernateUtil.getEntityManager();
             Query query = entityManager.createNamedQuery("Surgery.getByPatient");
-            query.setParameter(1, patient);
+            query.setParameter(1, patient.getId());
             return (List<Surgery>) query.getResultList();
         } catch (Exception e){
             throw new DAOException(e.getMessage());
         }
     }
 
+    @Override
+    public List<Surgery> getAll() throws DAOException {
+        try {
+            EntityManager entityManager = HibernateUtil.getEntityManager();
+            Query query = entityManager.createNamedQuery("Surgery.findAll");
+            return (List<Surgery>) query.getResultList();
+        } catch (Exception e){
+            throw new DAOException(e.getMessage());
+        }
+    }
 }

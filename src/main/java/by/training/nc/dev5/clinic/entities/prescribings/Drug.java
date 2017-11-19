@@ -4,25 +4,28 @@ import by.training.nc.dev5.clinic.entities.Patient;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by user on 25.04.2017.
  */
-@NamedQueries({@NamedQuery(name = "Drug.getByPatient", query = "SELECT a FROM Drug a WHERE a.patient=?1")})
+@NamedQueries({@NamedQuery(name = "Drug.getByPatient", query = "SELECT a FROM Drug a JOIN a.patients b WHERE b.id=?1"),
+        @NamedQuery(name = "Drug.findAll", query = "SELECT o FROM Drug o")})
 
 @Entity
 public class Drug extends AbstractPrescribing implements Serializable {
 
-    private Patient patient;
+    private List<Patient> patients;
 
-    @ManyToOne
-    @JoinColumn(name = "PatientId")
-    public Patient getPatient() {
-        return patient;
+    @ManyToMany
+    @JoinTable(name = "patient_drug",
+            joinColumns = @JoinColumn(name = "drug_id"),
+            inverseJoinColumns = @JoinColumn(name = "patient_id"))
+    public List<Patient> getPatients() {
+        return patients;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
     }
-
 }

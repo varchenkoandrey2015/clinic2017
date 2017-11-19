@@ -4,11 +4,15 @@ package by.training.nc.dev5.clinic.constants;
  * Created by user on 04.04.2017.
  */
 public class Parameters {
+    public static final String ALL_DIAGNOSISES = "allDiagnosises";
+    public static final String ALL_DRUGS = "allDrugs";
+    public static final String ALL_MEDPROCEDURES = "allMedProcedures";
+    public static final String ALL_SURGERIES = "allSurgeries";
     public static final String PATIENTS_LIST = "patientsList";
-    public static final String DIAGNOSIS_LIST = "diagnosisesList";
-    public static final String DRUGS_LIST = "drugsList";
-    public static final String MEDPROCEDURES_LIST = "medProceduresList";
-    public static final String SURGERIES_LIST = "surgeriesList";
+    public static final String PATIENT_DIAGNOSIS_LIST = "diagnosisesList";
+    public static final String PATIENT_DRUGS_LIST = "drugsList";
+    public static final String PATIENT_MEDPROCEDURES_LIST = "medProceduresList";
+    public static final String PATIENT_SURGERIES_LIST = "surgeriesList";
     public static final String PATIENT_ID = "patientId";
     public static final String PATIENT_NAME = "patientName";
     public static final String DIAGNOSIS_ID = "diagnosisId";

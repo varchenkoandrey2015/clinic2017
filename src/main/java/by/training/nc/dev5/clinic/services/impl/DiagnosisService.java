@@ -37,4 +37,9 @@ public class DiagnosisService extends AbstractService<Diagnosis> implements IDia
     public void delete(int id)throws DAOException{
         diagnosisDAO.delete(id);
     }
+
+    @Override
+    public List<Diagnosis> getAll() throws DAOException {
+        return diagnosisDAO.getAll();
+    }
 }

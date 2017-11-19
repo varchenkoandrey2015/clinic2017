@@ -26,11 +26,21 @@ public class  DrugMySQLDAO extends AbstractDAO<Drug> implements IDrugDAO {
         try {
             EntityManager entityManager = HibernateUtil.getEntityManager();
             Query query = entityManager.createNamedQuery("Drug.getByPatient");
-            query.setParameter(1, patient);
+            query.setParameter(1, patient.getId());
             return (List<Drug>) query.getResultList();
         } catch (Exception e){
             throw new DAOException(e.getMessage());
         }
     }
 
+    @Override
+    public List<Drug> getAll() throws DAOException {
+        try {
+            EntityManager entityManager = HibernateUtil.getEntityManager();
+            Query query = entityManager.createNamedQuery("Drug.findAll");
+            return (List<Drug>) query.getResultList();
+        } catch (Exception e){
+            throw new DAOException(e.getMessage());
+        }
+    }
 }

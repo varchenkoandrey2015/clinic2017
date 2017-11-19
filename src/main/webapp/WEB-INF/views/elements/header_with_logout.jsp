@@ -35,7 +35,7 @@
 </div>
 
 <br/>
-<a href="/choosepatient">
+<a href="/menu">
     <img src="${pageContext.request.contextPath}/resources/img/logo.png" class="logoStyle"/>
 </a>
 <br>

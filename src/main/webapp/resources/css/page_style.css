@@ -1,22 +1,59 @@
-body {
+.body{
     font: 120% Calibri;
-    margin: 0;
-    padding: 0;
+    width:80%;
 }
-.container {
-    width: 80%;
-    margin: 0 auto;
+
+.button-row{
+    display: flex;
+}
+
+.button-item{
+    margin:10px;
 }
 
 a:link {
     color: #008ed5;
     text-decoration: underline;
-
 }
 
 a:visited {
     color: #41046e;
     text-decoration: underline;
+}
+.logoStyle{
+    display:block;
+}
+
+.tabs > div{
+    padding-top:10px;
+}
+.tabs ul{
+    margin:0px;
+    padding:0px;
+}
+.tabs ul:after{
+    content:"";
+    display:block;
+    clear:both;
+    height:5px;
+    background:#008ed5;
+}
+.tabs ul li{
+    margin:0px;
+    padding:0px;
+    cursor:pointer;
+    display:block;
+    float:left;
+    padding:10px 15px;
+    background:#e9eaeb;
+    color:#707070;
+}
+.tabs ul li.active, .tabs ul li.active:hover{
+    background:#008ed5;
+    color:#fff;
+}
+.tabs ul li:hover{
+    background:#d6d6d7;
 }
 
 

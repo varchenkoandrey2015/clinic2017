@@ -38,4 +38,8 @@ public class DrugService extends AbstractService<Drug> implements IDrugService{
         drugDAO.add(drug);
     }
 
+    @Override
+    public List<Drug> getAll() throws DAOException {
+        return drugDAO.getAll();
+    }
 }

@@ -33,7 +33,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
     }
 
     protected void handle(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String targetUrl = "choosepatient";
+        String targetUrl = "menu";
         request.getSession().setAttribute(Parameters.WRONG_LOGIN_OR_PASSWORD, messageSource.getMessage("message.loginerror", null, request.getLocale()));
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }

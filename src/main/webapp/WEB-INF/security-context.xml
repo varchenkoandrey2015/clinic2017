@@ -10,11 +10,9 @@
     <http auto-config="true" use-expressions="true">
         <intercept-url pattern="/" access="permitAll"/>
         <intercept-url pattern="/index" access="permitAll"/>
-        <intercept-url pattern="/choosepatient" access="hasAnyRole('ROLE_DOCTOR', 'ROLE_NURSE')"/>
+        <intercept-url pattern="/menu" access="hasAnyRole('ROLE_DOCTOR', 'ROLE_NURSE')"/>
         <intercept-url pattern="/deldrug" access="hasAnyRole('ROLE_DOCTOR', 'ROLE_NURSE')"/>
         <intercept-url pattern="/delmedprocedure" access="hasAnyRole('ROLE_DOCTOR', 'ROLE_NURSE')"/>
-        <intercept-url pattern="/nursemenu" access="hasRole('ROLE_NURSE')"/>
-        <intercept-url pattern="/doctormenu" access="hasRole('ROLE_DOCTOR')"/>
         <intercept-url pattern="/addpatient" access="hasRole('ROLE_DOCTOR')"/>
         <intercept-url pattern="/adddiagnosis" access="hasRole('ROLE_DOCTOR')"/>
         <intercept-url pattern="/adddrug" access="hasRole('ROLE_DOCTOR')"/>

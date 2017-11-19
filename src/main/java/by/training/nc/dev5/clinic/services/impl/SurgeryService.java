@@ -37,4 +37,9 @@ public class SurgeryService extends AbstractService<Surgery>  implements ISurger
     public void delete(int id)throws DAOException{
         surgeryDAO.delete(id);
     }
+
+    @Override
+    public List<Surgery> getAll() throws DAOException {
+        return surgeryDAO.getAll();
+    }
 }

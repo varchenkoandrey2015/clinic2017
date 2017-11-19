@@ -26,11 +26,21 @@ public class MedProcedureMySQLDAO extends AbstractDAO<MedProcedure> implements I
         try {
             EntityManager entityManager = HibernateUtil.getEntityManager();
             Query query = entityManager.createNamedQuery("MedProcedure.getByPatient");
-            query.setParameter(1, patient);
+            query.setParameter(1, patient.getId());
             return (List<MedProcedure>) query.getResultList();
         } catch (Exception e){
             throw new DAOException(e.getMessage());
         }
     }
 
+    @Override
+    public List<MedProcedure> getAll() throws DAOException {
+        try {
+            EntityManager entityManager = HibernateUtil.getEntityManager();
+            Query query = entityManager.createNamedQuery("MedProcedure.findAll");
+            return (List<MedProcedure>) query.getResultList();
+        } catch (Exception e){
+            throw new DAOException(e.getMessage());
+        }
+    }
 }

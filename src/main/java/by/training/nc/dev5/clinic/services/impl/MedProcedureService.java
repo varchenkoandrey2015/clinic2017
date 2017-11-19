@@ -37,4 +37,9 @@ public class MedProcedureService extends AbstractService<MedProcedure> implement
     public void add(MedProcedure medProcedure)throws DAOException{
         medProcedureDAO.add(medProcedure);
     }
+
+    @Override
+    public List<MedProcedure> getAll() throws DAOException {
+        return medProcedureDAO.getAll();
+    }
 }

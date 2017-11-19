@@ -33,7 +33,10 @@ public class Patient extends AbstractEntity implements Serializable {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "patient_diagnosis",
+            joinColumns = @JoinColumn(name = "patient_id"),
+            inverseJoinColumns = @JoinColumn(name = "diagnosis_id"))
     public List<Diagnosis> getDiagnosises() {
         return diagnosises;
     }
@@ -42,7 +45,10 @@ public class Patient extends AbstractEntity implements Serializable {
         this.diagnosises = diagnosises;
     }
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "patient_drug",
+            joinColumns = @JoinColumn(name = "patient_id"),
+            inverseJoinColumns = @JoinColumn(name = "drug_id"))
     public List<Drug> getDrugs() {
         return drugs;
     }
@@ -51,7 +57,10 @@ public class Patient extends AbstractEntity implements Serializable {
         this.drugs = drugs;
     }
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "patient_surgery",
+            joinColumns = @JoinColumn(name = "patient_id"),
+            inverseJoinColumns = @JoinColumn(name = "surgery_id"))
     public List<Surgery> getSurgeries() {
         return surgeries;
     }
@@ -60,7 +69,10 @@ public class Patient extends AbstractEntity implements Serializable {
         this.surgeries = surgeries;
     }
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "patient_medprocedure",
+            joinColumns = @JoinColumn(name = "patient_id"),
+            inverseJoinColumns = @JoinColumn(name = "medprocedure_id"))
     public List<MedProcedure> getMedProcedures() {
         return medProcedures;
     }

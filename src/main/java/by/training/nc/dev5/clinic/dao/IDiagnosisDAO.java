@@ -10,4 +10,5 @@ import by.training.nc.dev5.clinic.exceptions.*;
  */
 public interface IDiagnosisDAO extends IDAO<Diagnosis> {
     List<Diagnosis> getByPatient(Patient patient)throws DAOException;
+    List<Diagnosis> getAll()throws DAOException;
 }

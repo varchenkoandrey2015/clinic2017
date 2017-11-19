@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <div class="header" align="left">
-            <%@include file="../../views/elements/header_with_logout.jsp" %>
+            <%@include file="elements/header_with_logout.jsp" %>
         </div>
         <a href="/choosepatient"><s:message code="patients.title"/></a>>
         <s:message code="menu.title"/><br/>
@@ -21,6 +21,18 @@
                 <tr>
                     <td valign="top" style="text-align: center">
                         <a href="/adddiagnosis"><s:message code="add.diagnosis.title"/></a> <br/>
+                        <form method="POST" action="/addpatientdiagnosis">
+                            <input type="hidden" name="<c:out value="${_csrf.parameterName}"/>" value="<c:out value="${_csrf.token}"/>"/>
+                            <select name="diagnosis">
+                                <c:forEach var="item" items="${allDiagnosis}">
+                                    <option>
+                                        <c:out value="${item}" />
+                                    </option>
+                                </c:forEach>
+                            </select>
+                            <s:message var="button" code="add.diagnosis.title"/>
+                            <input type="submit" value="${button}"/>
+                        </form>
                         <form name="diagnosisListForm" method="POST" action="/deldiagnosis">
                             <s:message var="button" code="menu.deldiagnosis"/>
                             <input type="hidden" name="<c:out value="${_csrf.parameterName}"/>" value="<c:out value="${_csrf.token}"/>"/>
@@ -143,7 +155,7 @@
             ${operationMessage}  <br />
         </div>
         <div class="footer" align="center">
-            <%@include file="../../views/elements/footer.jsp" %>
+            <%@include file="elements/footer.jsp" %>
         </div>
     </div>
 </body>

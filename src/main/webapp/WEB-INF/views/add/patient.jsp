@@ -11,7 +11,7 @@
 <body>
 <div class="container">
     <div class="header" align="left">
-        <%@include file="../../../views/elements/header_with_logout.jsp" %>
+        <%@include file="../elements/header_with_logout.jsp" %>
     </div>
     <a href="/choosepatient"><s:message code="patients.title"/></a>>
     <s:message code="add.patient.title"/><br/>
@@ -26,7 +26,7 @@
         </form>
     </div>
     <div class="footer" align="center">
-        <%@include file="../../../views/elements/footer.jsp" %>
+        <%@include file="../elements/footer.jsp" %>
     </div>
 </div>
 </body>
