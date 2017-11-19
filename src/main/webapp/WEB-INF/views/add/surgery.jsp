@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <html>
 <head>
-    <title><s:message code="add.surgery.title"/></title>
+    <title><s:message code="add.title"/></title>
     <link href="${pageContext.request.contextPath}/resources/css/page_style.css" rel="stylesheet" >
     <link href="${pageContext.request.contextPath}/resources/css/logo_style.css" rel="stylesheet" >
 </head>
@@ -13,8 +13,7 @@
         <div class="header" align="left">
             <%@include file="../elements/header_with_logout.jsp" %>
         </div>
-        <a href="/choosepatient"><s:message code="patients.title"/></a>>
-        <a href="/doctormenu"><s:message code="menu.title"/></a>><s:message code="add.surgery.title"/><br/>
+
         <div align="center">
             <form name="addSurgeryForm" method="POST" action="/addsurgery">
                 <s:message code="add.prescribing.entername"/><br />

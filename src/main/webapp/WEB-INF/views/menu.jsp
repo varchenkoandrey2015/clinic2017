@@ -95,11 +95,11 @@
                         <div class="button-item">
                             <a href="/addpatient"><s:message code="add.title"/></a>
                         </div>
+                        <div class="button-item">
+                            <s:message var="button" code="del.title"/>
+                            <input type="submit" value="${button}"/>
+                        </div>
                     </sec:authorize>
-                    <div class="button-item">
-                        <s:message var="button" code="del.title"/>
-                        <input type="submit" value="${button}"/>
-                    </div>
                 </div>
             </form>
         </div>
@@ -130,13 +130,12 @@
                 <input type="hidden" name="<c:out value="${_csrf.parameterName}"/>"
                        value="<c:out value="${_csrf.token}"/>"/>
                 <div class="button-row">
-                    <sec:authorize access="hasRole('ROLE_DOCTOR')">
-                        <div class="button-item">
-                            <a href="/adddiagnosis"><s:message code="add.title"/></a>
-                        </div>
-                    </sec:authorize>
                     <div class="button-item">
-                        <s:message var="button" code="menu.deldiagnosis"/>
+                        <a href="/adddiagnosis"><s:message code="add.title"/></a>
+                    </div>
+
+                    <div class="button-item">
+                        <s:message var="button" code="del.title"/>
                         <input type="submit" value="${button}"/>
                     </div>
                 </div>
@@ -167,11 +166,9 @@
                     </tbody>
                 </table>
                 <div class="button-row">
-                    <sec:authorize access="hasRole('ROLE_DOCTOR')">
-                        <div class="button-item">
-                            <a href="/adddrug"><s:message code="add.title"/></a>
-                        </div>
-                    </sec:authorize>
+                    <div class="button-item">
+                        <a href="/adddrug"><s:message code="add.title"/></a>
+                    </div>
                     <div class="button-item">
                         <s:message var="button" code="del.title"/>
                         <input type="submit" value="${button}"/>
@@ -204,11 +201,9 @@
                     </tbody>
                 </table>
                 <div class="button-row">
-                    <sec:authorize access="hasRole('ROLE_DOCTOR')">
-                        <div class="button-item">
-                            <a href="/addmedprocedure"><s:message code="add.title"/></a>
-                        </div>
-                    </sec:authorize>
+                    <div class="button-item">
+                        <a href="/addmedprocedure"><s:message code="add.title"/></a>
+                    </div>
                     <div class="button-item">
                         <s:message var="button" code="del.title"/>
                         <input type="submit" value="${button}"/>
@@ -241,11 +236,9 @@
                     </tbody>
                 </table>
                 <div class="button-row">
-                    <sec:authorize access="hasRole('ROLE_DOCTOR')">
-                        <div class="button-item">
-                            <a href="/addsurgery"><s:message code="add.title"/></a>
-                        </div>
-                    </sec:authorize>
+                    <div class="button-item">
+                        <a href="/addsurgery"><s:message code="add.title"/></a>
+                    </div>
                     <div class="button-item">
                         <s:message var="button" code="del.title"/>
                         <input type="submit" value="${button}"/>
