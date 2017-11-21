@@ -1,7 +1,7 @@
 package by.training.nc.dev5.clinic.dao.impl;
 
 import by.training.nc.dev5.clinic.dao.AbstractDAO;
-import by.training.nc.dev5.clinic.entities.prescribings.Drug;
+import by.training.nc.dev5.clinic.entities.Drug;
 import by.training.nc.dev5.clinic.dao.IDrugDAO;
 import by.training.nc.dev5.clinic.entities.Patient;
 import by.training.nc.dev5.clinic.utils.HibernateUtil;

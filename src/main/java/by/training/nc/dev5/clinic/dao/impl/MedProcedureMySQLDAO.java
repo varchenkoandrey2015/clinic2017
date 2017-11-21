@@ -2,7 +2,7 @@ package by.training.nc.dev5.clinic.dao.impl;
 
 import by.training.nc.dev5.clinic.dao.AbstractDAO;
 import by.training.nc.dev5.clinic.entities.Patient;
-import by.training.nc.dev5.clinic.entities.prescribings.MedProcedure;
+import by.training.nc.dev5.clinic.entities.MedProcedure;
 import by.training.nc.dev5.clinic.dao.IMedProcedureDAO;
 import by.training.nc.dev5.clinic.utils.HibernateUtil;
 import by.training.nc.dev5.clinic.exceptions.*;

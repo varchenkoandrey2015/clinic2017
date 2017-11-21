@@ -1,6 +1,6 @@
 package by.training.nc.dev5.clinic.dao;
 
-import by.training.nc.dev5.clinic.entities.prescribings.Drug;
+import by.training.nc.dev5.clinic.entities.Drug;
 import by.training.nc.dev5.clinic.entities.Patient;
 
 import java.util.List;

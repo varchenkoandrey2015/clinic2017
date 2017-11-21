@@ -16,10 +16,8 @@ public class User extends AbstractEntity implements Serializable{
 
     private String login;
     private String password;
-    private String accessLevel;
 
-
-    @Column(name = "Login")
+    @Column(name = "login")
     public String getLogin() {
         return login;
     }
@@ -29,22 +27,13 @@ public class User extends AbstractEntity implements Serializable{
     }
 
 
-    @Column(name = "Password")
+    @Column(name = "password")
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Column(name = "AccessLevel")
-    public String getAccessLevel() {
-        return accessLevel;
-    }
-
-    public void setAccessLevel(String accessLevel) {
-        this.accessLevel = accessLevel;
     }
 
 }

@@ -38,7 +38,7 @@ public class AuthenticationService implements UserDetailsService {
 
     private List<GrantedAuthority> getGrantedAuthorities(User user) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority(WebConstants.ROLE_PREFIX + user.getAccessLevel()));
+        authorities.add(new SimpleGrantedAuthority(WebConstants.ROLE));
         return authorities;
     }
 }

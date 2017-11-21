@@ -1,4 +1,4 @@
-package by.training.nc.dev5.clinic.entities.prescribings;
+package by.training.nc.dev5.clinic.entities;
 
 import by.training.nc.dev5.clinic.entities.AbstractEntity;
 
@@ -15,12 +15,23 @@ import javax.persistence.MappedSuperclass;
 public abstract class AbstractPrescribing extends AbstractEntity {
     private String name;
 
-    @Column(name = "Name")
+    private String description;
+
+    @Column(name = "name")
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

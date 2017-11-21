@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
-
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -58,9 +58,12 @@
 <div class="tabs">
     <ul>
         <li><s:message code="patients.title"/></li>
-        <li><s:message code="menu.diagonisises"/></li>
-        <li><s:message code="menu.drugs"/></li>
-        <li><s:message code="menu.medprocedures"/></li>
+        <sec:authorize access="hasRole('ROLE_DOCTOR')">
+            <li><s:message code="menu.diagonisises"/></li>
+            <li><s:message code="menu.drugs"/></li>
+            <li><s:message code="menu.medprocedures"/></li>
+            <li><s:message code="menu.surgeries"/></li>
+        </sec:authorize>
     </ul>
 
     <div class="container">
@@ -72,7 +75,7 @@
                         <th><s:message code="patients.fullname"/></th>
                         <th><s:message code="patients.gender"/></th>
                         <th><s:message code="patients.address"/></th>
-                        <th><s:message code="patients.phone"/></th>
+                        <th><s:message code="patients.email"/></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -91,7 +94,7 @@
                                 <c:out value="${ patient.address }"/>
                             </td>
                             <td>
-                                <c:out value="${ patient.phone }"/>
+                                <c:out value="${ patient.email }"/>
                             </td>
                         </tr>
                     </c:forEach>
@@ -99,20 +102,24 @@
                 </table>
                 <input type="hidden" name="<c:out value="${_csrf.parameterName}"/>"
                        value="<c:out value="${_csrf.token}"/>"/>
-
-                <div class="button-item">
-                    <a href="/addpatient"><s:message code="add.title"/></a>
-                </div>
-                <%--<div class="button-item">--%>
-                <%--<a href="/editpatient"><s:message code="edit.title"/></a>--%>
-                <%--</div>--%>
-                <div class="button-item">
-                    <s:message var="button" code="del.title"/>
-                    <input type="submit" value="${button}"/>
+                <div class="button-row">
+                    <sec:authorize access="hasRole('ROLE_DOCTOR')">
+                        <div class="button-item">
+                            <a href="/addpatient"><s:message code="add.title"/></a>
+                        </div>
+                        <%--<div class="button-item">--%>
+                        <%--<a href="/editpatient"><s:message code="edit.title"/></a>--%>
+                        <%--</div>--%>
+                        <div class="button-item">
+                            <s:message var="button" code="del.title"/>
+                            <input type="submit" value="${button}"/>
+                        </div>
+                    </sec:authorize>
                 </div>
             </form>
         </div>
 
+        <sec:authorize access="hasRole('ROLE_DOCTOR')">
         <div class="container-item">
             <form name="diagnosisListForm" method="POST" action="/deldiagnosis">
                 <table id="diagnosisTable" class="display">
@@ -220,6 +227,7 @@
             </form>
         </div>
     </div>
+    </sec:authorize>
 </div>
 
 ${operationMessage}<br/>

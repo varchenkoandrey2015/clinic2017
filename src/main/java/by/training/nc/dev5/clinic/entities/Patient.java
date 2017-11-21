@@ -1,10 +1,5 @@
 package by.training.nc.dev5.clinic.entities;
 
-import by.training.nc.dev5.clinic.entities.prescribings.Diagnosis;
-import by.training.nc.dev5.clinic.entities.prescribings.Drug;
-import by.training.nc.dev5.clinic.entities.prescribings.MedProcedure;
-import by.training.nc.dev5.clinic.entities.prescribings.Surgery;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -17,26 +12,74 @@ import java.util.List;
 @Entity
 public class Patient extends AbstractEntity implements Serializable {
 
-    private String name;
+    private String firstName;
+    private String middleName;
+    private String lastName;
+    private String gender;
+    private String address;
+    private String phone;
     private List<Diagnosis> diagnosises;
     private List<Drug> drugs;
     private List<MedProcedure> medProcedures;
-    private List<Surgery> surgeries;
 
-
-    @Column(name = "Name")
-    public String getName() {
-        return name;
+    @Column(name = "firstName")
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @Column(name = "middleName")
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    @Column(name = "lastName")
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Column(name = "gender")
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    @Column(name = "address")
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Column(name = "phone")
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "patient_diagnosis",
-            joinColumns = @JoinColumn(name = "patient_id"),
-            inverseJoinColumns = @JoinColumn(name = "diagnosis_id"))
+            joinColumns = @JoinColumn(name = "patientId"),
+            inverseJoinColumns = @JoinColumn(name = "diagnosisId"))
     public List<Diagnosis> getDiagnosises() {
         return diagnosises;
     }
@@ -47,8 +90,8 @@ public class Patient extends AbstractEntity implements Serializable {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "patient_drug",
-            joinColumns = @JoinColumn(name = "patient_id"),
-            inverseJoinColumns = @JoinColumn(name = "drug_id"))
+            joinColumns = @JoinColumn(name = "patientId"),
+            inverseJoinColumns = @JoinColumn(name = "drugId"))
     public List<Drug> getDrugs() {
         return drugs;
     }
@@ -58,21 +101,9 @@ public class Patient extends AbstractEntity implements Serializable {
     }
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "patient_surgery",
-            joinColumns = @JoinColumn(name = "patient_id"),
-            inverseJoinColumns = @JoinColumn(name = "surgery_id"))
-    public List<Surgery> getSurgeries() {
-        return surgeries;
-    }
-
-    public void setSurgeries(List<Surgery> surgeries) {
-        this.surgeries = surgeries;
-    }
-
-    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "patient_medprocedure",
-            joinColumns = @JoinColumn(name = "patient_id"),
-            inverseJoinColumns = @JoinColumn(name = "medprocedure_id"))
+            joinColumns = @JoinColumn(name = "patientId"),
+            inverseJoinColumns = @JoinColumn(name = "medprocedureId"))
     public List<MedProcedure> getMedProcedures() {
         return medProcedures;
     }

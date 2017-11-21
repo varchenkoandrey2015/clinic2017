@@ -1,5 +1,6 @@
-package by.training.nc.dev5.clinic.entities.prescribings;
+package by.training.nc.dev5.clinic.entities;
 
+import by.training.nc.dev5.clinic.entities.AbstractPrescribing;
 import by.training.nc.dev5.clinic.entities.Patient;
 
 import javax.persistence.*;
@@ -19,8 +20,8 @@ public class MedProcedure extends AbstractPrescribing implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "patient_medprocedure",
-            joinColumns = @JoinColumn(name = "medprocedure_id"),
-            inverseJoinColumns = @JoinColumn(name = "patient_id"))
+            joinColumns = @JoinColumn(name = "medprocedureId"),
+            inverseJoinColumns = @JoinColumn(name = "patientId"))
     public List<Patient> getPatients() {
         return patients;
     }

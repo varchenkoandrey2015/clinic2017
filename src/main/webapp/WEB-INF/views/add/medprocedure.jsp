@@ -15,7 +15,7 @@
 
         <div align="center">
             <form name="addMedProcedureForm" method="POST" action="/addmedprocedure">
-                <s:message code="add.prescribing.entername"/><br />
+                <s:message code="prescribings.name"/><br />
                 <input type="text" name="medProcedureName" value="" />
                 <s:message var="button" code="common.submit"/>
                 <input type="hidden" name="<c:out value="${_csrf.parameterName}"/>" value="<c:out value="${_csrf.token}"/>"/>

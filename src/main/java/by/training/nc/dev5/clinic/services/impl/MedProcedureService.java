@@ -1,9 +1,8 @@
 package by.training.nc.dev5.clinic.services.impl;
 
 import by.training.nc.dev5.clinic.dao.IMedProcedureDAO;
-import by.training.nc.dev5.clinic.entities.prescribings.MedProcedure;
+import by.training.nc.dev5.clinic.entities.MedProcedure;
 import by.training.nc.dev5.clinic.entities.Patient;
-import by.training.nc.dev5.clinic.dao.impl.MedProcedureMySQLDAO;
 import by.training.nc.dev5.clinic.exceptions.DAOException;
 import by.training.nc.dev5.clinic.services.AbstractService;
 import by.training.nc.dev5.clinic.services.IMedProcedureService;

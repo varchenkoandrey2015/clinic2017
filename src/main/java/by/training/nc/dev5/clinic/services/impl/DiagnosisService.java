@@ -1,9 +1,7 @@
 package by.training.nc.dev5.clinic.services.impl;
 
-import by.training.nc.dev5.clinic.dao.AbstractDAO;
 import by.training.nc.dev5.clinic.dao.IDiagnosisDAO;
-import by.training.nc.dev5.clinic.entities.prescribings.Diagnosis;
-import by.training.nc.dev5.clinic.dao.impl.DiagnosisMySQLDAO;
+import by.training.nc.dev5.clinic.entities.Diagnosis;
 import by.training.nc.dev5.clinic.entities.Patient;
 import by.training.nc.dev5.clinic.exceptions.DAOException;
 import by.training.nc.dev5.clinic.services.AbstractService;
