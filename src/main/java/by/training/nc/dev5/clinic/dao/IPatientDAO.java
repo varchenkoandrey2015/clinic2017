@@ -10,7 +10,7 @@ import by.training.nc.dev5.clinic.exceptions.*;
 public interface IPatientDAO{
     void add(Patient patient)throws DAOException;
     void delete(int id)throws DAOException;
+    void update(Patient entity) throws DAOException;
     List<Patient> getAll() throws DAOException;
     Patient getById(int patientId)throws DAOException;
-//    Patient getByName(String name)throws DAOException, NotFoundException;
 }

@@ -13,10 +13,12 @@ public class Parameters {
     public static final String PATIENT_MEDPROCEDURES_LIST = "patientMedProcedures";
     public static final String PATIENT_SURGERIES_LIST = "patientSurgeries";
     public static final String PATIENT_ID = "patientId";
-    public static final String PATIENT_NAME = "patientName";
+    public static final String PATIENT_FIRSTNAME = "patientFirstName";
+    public static final String PATIENT_MIDDLENAME = "patientMiddleName";
+    public static final String PATIENT_LASTNAME = "patientLastName";
     public static final String PATIENT_GENDER = "patientGender";
     public static final String PATIENT_ADDRESS = "patientAddress";
-    public static final String PATIENT_EMAIL = "patientEmail";
+    public static final String PATIENT_PHONE = "patientPhone";
     public static final String DIAGNOSIS_ID = "diagnosisId";
     public static final String DIAGNOSIS_NAME = "diagnosisName";
     public static final String DIAGNOSIS_DESC = "diagnosisDescription";

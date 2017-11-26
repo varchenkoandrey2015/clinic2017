@@ -64,7 +64,7 @@
 
     <div class="container">
         <div class="container-item">
-            <form name="choosePatientForm" method="POST" action="/delpatient">
+            <form name="choosePatientForm" method="POST">
                 <table id="patientTable" class="display">
                     <thead>
                     <tr>
@@ -110,12 +110,15 @@
                     <div class="button-item">
                         <a class="button" href="/addpatient"><s:message code="add.title"/></a>
                     </div>
-                    <%--<div class="button-item">--%>
-                    <%--<a href="/editpatient"><s:message code="edit.title"/></a>--%>
-                    <%--</div>--%>
+                    <div class="button-item">
+                        <s:message var="button" code="edit.title"/>
+                        <input class="button" type="submit" value="${button}"
+                               onclick= "document.choosePatientForm.action = '/editpatient';document.choosePatientForm.submit()"/>
+                    </div>
                     <div class="button-item">
                         <s:message var="button" code="del.title"/>
-                        <input class="button" type="submit" value="${button}"/>
+                        <input class="button" type="submit" value="${button}"
+                               onclick= "document.choosePatientForm.action = '/delpatient';document.choosePatientForm.submit()"/>
                     </div>
                 </div>
             </form>

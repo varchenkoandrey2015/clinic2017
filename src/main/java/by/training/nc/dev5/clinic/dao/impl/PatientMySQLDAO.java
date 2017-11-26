@@ -30,6 +30,19 @@ public class PatientMySQLDAO  implements IPatientDAO {
         }
     }
 
+    public void update(Patient entity) throws DAOException {
+        EntityManager entityManager = HibernateUtil.getEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
+        } catch (Exception e){
+            entityManager.getTransaction().rollback();
+            throw new DAOException(e.getMessage());
+        }finally {
+            entityManager.flush();
+            entityManager.getTransaction().commit();
+        }
+    }
     public void delete(int id) throws DAOException{
         EntityManager entityManager = HibernateUtil.getEntityManager();
         try {
@@ -63,20 +76,5 @@ public class PatientMySQLDAO  implements IPatientDAO {
             throw new DAOException(e.getMessage());
         }
     }
-
-//    public Patient getByName(String name)throws DAOException, NotFoundException{
-//        List<Patient> patientList;
-//        try {
-//            EntityManager entityManager = HibernateUtil.getEntityManager();
-//            Query query = entityManager.createNamedQuery("Patient.getByName");
-//            query.setParameter(1, name);
-//            patientList = (List<Patient>) query.getResultList();
-//            return patientList.get(0);
-//        } catch (IndexOutOfBoundsException e){
-//            throw new NotFoundException();
-//        }catch (Exception e){
-//            throw new DAOException(e.getMessage());
-//        }
-//    }
 
 }

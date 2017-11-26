@@ -11,7 +11,7 @@ import java.util.List;
 public interface IPatientService{
     void add(Patient entity)throws DAOException;
     void delete(int id)throws DAOException;
+    void update(Patient entity) throws DAOException;
     List<Patient> getAll()throws DAOException;
-//    boolean isNewPatient(String name)throws DAOException;
     Patient getById(int id)throws DAOException;
 }

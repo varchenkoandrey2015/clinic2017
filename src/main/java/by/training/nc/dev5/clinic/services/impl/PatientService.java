@@ -27,17 +27,13 @@ public class PatientService  implements IPatientService{
         return patientDAO.getAll();
     }
 
-//    public boolean isNewPatient(String name)throws DAOException{
-//        try {
-//            patientDAO.getByName(name);
-//            return false;
-//        } catch (NotFoundException e){
-//            return true;
-//        }
-//    }
-
     public void add(Patient patient)throws DAOException{
         patientDAO.add(patient);
+    }
+
+    @Override
+    public void update(Patient entity) throws DAOException {
+        patientDAO.update(entity);
     }
 
     public Patient getById(int id)throws DAOException {
