@@ -4,25 +4,36 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@NamedQueries({@NamedQuery(name = "Patient.findAll", query = "SELECT o FROM Patient o"),
-               @NamedQuery(name = "Patient.getByName", query = "SELECT a FROM Patient a WHERE a.name=?1")})
+@NamedQueries({@NamedQuery(name = "Patient.findAll", query = "SELECT o FROM Patient o")})
 /**
  * Created by user on 25.04.2017.
  */
 @Entity
-public class Patient extends AbstractEntity implements Serializable {
+public class Patient implements Serializable {
 
+    private Integer patientId;
     private String firstName;
     private String middleName;
     private String lastName;
     private String gender;
     private String address;
     private String phone;
-    private List<Diagnosis> diagnosises;
-    private List<Drug> drugs;
-    private List<MedProcedure> medProcedures;
+    private List<PatientDiagnosis> patientDiagnoses;
+    private List<PatientDrug> patientDrugs;
+    private List<PatientMedProcedure> patientMedProcedures;
 
-    @Column(name = "firstName")
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "patientId")
+    public Integer getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
+    }
+
+    @Column(name = "firstName", nullable = false)
     public String getFirstName() {
         return firstName;
     }
@@ -49,7 +60,7 @@ public class Patient extends AbstractEntity implements Serializable {
         this.lastName = lastName;
     }
 
-    @Column(name = "gender")
+    @Column(name = "gender", nullable = false)
     public String getGender() {
         return gender;
     }
@@ -58,7 +69,7 @@ public class Patient extends AbstractEntity implements Serializable {
         this.gender = gender;
     }
 
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     public String getAddress() {
         return address;
     }
@@ -67,7 +78,7 @@ public class Patient extends AbstractEntity implements Serializable {
         this.address = address;
     }
 
-    @Column(name = "phone")
+    @Column(name = "phone", nullable = false)
     public String getPhone() {
         return phone;
     }
@@ -76,40 +87,30 @@ public class Patient extends AbstractEntity implements Serializable {
         this.phone = phone;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "patient_diagnosis",
-            joinColumns = @JoinColumn(name = "patientId"),
-            inverseJoinColumns = @JoinColumn(name = "diagnosisId"))
-    public List<Diagnosis> getDiagnosises() {
-        return diagnosises;
+    @OneToMany(mappedBy = "patient")
+    public List<PatientDiagnosis> getPatientDiagnoses() {
+        return patientDiagnoses;
     }
 
-    public void setDiagnosises(List<Diagnosis> diagnosises) {
-        this.diagnosises = diagnosises;
+    public void setPatientDiagnoses(List<PatientDiagnosis> patientDiagnoses) {
+        this.patientDiagnoses = patientDiagnoses;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "patient_drug",
-            joinColumns = @JoinColumn(name = "patientId"),
-            inverseJoinColumns = @JoinColumn(name = "drugId"))
-    public List<Drug> getDrugs() {
-        return drugs;
+    @OneToMany(mappedBy = "patient")
+    public List<PatientDrug> getPatientDrugs() {
+        return patientDrugs;
     }
 
-    public void setDrugs(List<Drug> drugs) {
-        this.drugs = drugs;
+    public void setPatientDrugs(List<PatientDrug> patientDrugs) {
+        this.patientDrugs = patientDrugs;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "patient_medprocedure",
-            joinColumns = @JoinColumn(name = "patientId"),
-            inverseJoinColumns = @JoinColumn(name = "medprocedureId"))
-    public List<MedProcedure> getMedProcedures() {
-        return medProcedures;
+    @OneToMany(mappedBy = "patient")
+    public List<PatientMedProcedure> getPatientMedProcedures() {
+        return patientMedProcedures;
     }
 
-    public void setMedProcedures(List<MedProcedure> medProcedures) {
-        this.medProcedures = medProcedures;
+    public void setPatientMedProcedures(List<PatientMedProcedure> patientMedProcedures) {
+        this.patientMedProcedures = patientMedProcedures;
     }
-
 }

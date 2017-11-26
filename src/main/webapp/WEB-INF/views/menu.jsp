@@ -19,7 +19,6 @@
         $('#diagnosisTable').DataTable();
         $('#drugTable').DataTable();
         $('#medProcedureTable').DataTable();
-        $('#surgeryTable').DataTable();
         $(".tabs").lightTabs();
     });
     (function ($) {
@@ -69,7 +68,9 @@
                 <table id="patientTable" class="display">
                     <thead>
                     <tr>
-                        <th><s:message code="patients.fullname"/></th>
+                        <th><s:message code="patients.firstName"/></th>
+                        <th><s:message code="patients.middleName"/></th>
+                        <th><s:message code="patients.lastName"/></th>
                         <th><s:message code="patients.gender"/></th>
                         <th><s:message code="patients.address"/></th>
                         <th><s:message code="patients.phone"/></th>
@@ -80,9 +81,15 @@
                         <tr>
                             <td>
                                 <label>
-                                    <input type="radio" name="patientId" value="${ patient.id }"/>
-                                    <c:out value="${ patient.name }"/>
+                                    <input type="radio" name="patientId" value="${ patient.patientId }"/>
+                                    <c:out value="${ patient.firstName }"/>
                                 </label>
+                            </td>
+                            <td>
+                                <c:out value="${ patient.middleName }"/>
+                            </td>
+                            <td>
+                                <c:out value="${ patient.lastName }"/>
                             </td>
                             <td>
                                 <c:out value="${ patient.gender }"/>
@@ -99,26 +106,28 @@
                 </table>
                 <input type="hidden" name="<c:out value="${_csrf.parameterName}"/>"
                        value="<c:out value="${_csrf.token}"/>"/>
-
-                <div class="button-item">
-                    <a href="/addpatient"><s:message code="add.title"/></a>
-                </div>
-                <%--<div class="button-item">--%>
-                <%--<a href="/editpatient"><s:message code="edit.title"/></a>--%>
-                <%--</div>--%>
-                <div class="button-item">
-                    <s:message var="button" code="del.title"/>
-                    <input type="submit" value="${button}"/>
+                <div class="button-row">
+                    <div class="button-item">
+                        <a class="button" href="/addpatient"><s:message code="add.title"/></a>
+                    </div>
+                    <%--<div class="button-item">--%>
+                    <%--<a href="/editpatient"><s:message code="edit.title"/></a>--%>
+                    <%--</div>--%>
+                    <div class="button-item">
+                        <s:message var="button" code="del.title"/>
+                        <input class="button" type="submit" value="${button}"/>
+                    </div>
                 </div>
             </form>
         </div>
 
         <div class="container-item">
-            <form name="diagnosisListForm" method="POST" action="/deldiagnosis">
+            <form name="diagnosisListForm" method="POST">
                 <table id="diagnosisTable" class="display">
                     <thead>
                     <tr>
-                        <th><s:message code="menu.diagonisises"/></th>
+                        <th><s:message code="prescribings.name"/></th>
+                        <th><s:message code="prescribings.description"/></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -126,9 +135,12 @@
                         <tr>
                             <td>
                                 <label>
-                                    <input type="radio" name="diagnosisId" value="${ diagnosis.id }"/>
+                                    <input type="radio" name="diagnosisId" value="${ diagnosis.diagnosisId }"/>
                                     <c:out value="${ diagnosis.name }"/>
                                 </label>
+                            </td>
+                            <td>
+                                <c:out value="${ diagnosis.description }"/>
                             </td>
                         </tr>
                     </c:forEach>
@@ -139,25 +151,33 @@
                        value="<c:out value="${_csrf.token}"/>"/>
                 <div class="button-row">
                     <div class="button-item">
-                        <a href="/adddiagnosis"><s:message code="add.title"/></a>
+                        <a class="button" href="/adddiagnosis"><s:message code="add.title"/></a>
+                    </div>
+
+                    <div class="button-item">
+                        <s:message var="button" code="edit.title"/>
+                        <input class="button" type="submit" value="${button}"
+                               onclick= "document.diagnosisListForm.action = '/editdiagnosis';document.diagnosisListForm.submit()"/>
                     </div>
 
                     <div class="button-item">
                         <s:message var="button" code="del.title"/>
-                        <input type="submit" value="${button}"/>
+                        <input class="button" type="submit" value="${button}"
+                               onclick= "document.diagnosisListForm.action = '/deldiagnosis';document.diagnosisListForm.submit()"/>
                     </div>
                 </div>
             </form>
         </div>
 
         <div class="container-item">
-            <form name="drugListForm" method="POST" action="/deldrug">
+            <form name="drugListForm" method="POST">
                 <input type="hidden" name="<c:out value="${_csrf.parameterName}"/>"
                        value="<c:out value="${_csrf.token}"/>"/>
                 <table id="drugTable" class="display">
                     <thead>
                     <tr>
-                        <th><s:message code="menu.drugs"/></th>
+                        <th><s:message code="prescribings.name"/></th>
+                        <th><s:message code="prescribings.description"/></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -165,9 +185,12 @@
                         <tr>
                             <td>
                                 <label>
-                                    <input type="radio" name="drugId" value="${ drug.id }"/>
+                                    <input type="radio" name="drugId" value="${ drug.drugId }"/>
                                     <c:out value="${ drug.name }"/>
                                 </label>
+                            </td>
+                            <td>
+                                <c:out value="${ drug.description }"/>
                             </td>
                         </tr>
                     </c:forEach>
@@ -175,24 +198,31 @@
                 </table>
                 <div class="button-row">
                     <div class="button-item">
-                        <a href="/adddrug"><s:message code="add.title"/></a>
+                        <a class="button" href="/adddrug"><s:message code="add.title"/></a>
+                    </div>
+                    <div class="button-item">
+                        <s:message var="button" code="edit.title"/>
+                        <input class="button" type="submit" value="${button}"
+                               onclick= "document.drugListForm.action = '/editdrug';document.drugListForm.submit()"/>
                     </div>
                     <div class="button-item">
                         <s:message var="button" code="del.title"/>
-                        <input type="submit" value="${button}"/>
+                        <input class="button" type="submit" value="${button}"
+                               onclick= "document.drugListForm.action = '/deldrug';document.drugListForm.submit()"/>
                     </div>
                 </div>
             </form>
         </div>
 
         <div class="container-item">
-            <form name="medProcedureListForm" method="POST" action="/delmedprocedure">
+            <form name="medProcedureListForm" method="POST">
                 <input type="hidden" name="<c:out value="${_csrf.parameterName}"/>"
                        value="<c:out value="${_csrf.token}"/>"/>
                 <table id="medProcedureTable" class="display">
                     <thead>
                     <tr>
-                        <th><s:message code="menu.medprocedures"/></th>
+                        <th><s:message code="prescribings.name"/></th>
+                        <th><s:message code="prescribings.description"/></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -200,9 +230,12 @@
                         <tr>
                             <td>
                                 <label>
-                                    <input type="radio" name="medProcedureId" value="${ medProcedure.id }"/>
+                                    <input type="radio" name="medProcedureId" value="${ medProcedure.medProcedureId }"/>
                                     <c:out value="${ medProcedure.name }"/>
                                 </label>
+                            </td>
+                            <td>
+                                <c:out value="${ medProcedure.description }"/>
                             </td>
                         </tr>
                     </c:forEach>
@@ -210,11 +243,17 @@
                 </table>
                 <div class="button-row">
                     <div class="button-item">
-                        <a href="/addmedprocedure"><s:message code="add.title"/></a>
+                        <a class="button" href="/addmedprocedure"><s:message code="add.title"/></a>
+                    </div>
+                    <div class="button-item">
+                        <s:message var="button" code="edit.title"/>
+                        <input class="button" type="submit" value="${button}"
+                               onclick= "document.medProcedureListForm.action = '/editmedprocedure';document.medProcedureListForm.submit()"/>
                     </div>
                     <div class="button-item">
                         <s:message var="button" code="del.title"/>
-                        <input type="submit" value="${button}"/>
+                        <input class="button" type="submit" value="${button}"
+                               onclick= "document.medProcedureListForm.action = '/delmedprocedure';document.medProcedureListForm.submit()"/>
                     </div>
                 </div>
             </form>

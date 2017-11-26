@@ -9,7 +9,11 @@ import java.util.List;
 /**
  * Created by user on 07.05.2017.
  */
-public interface IDrugService extends IService<Drug>{
-    List<Drug> getByPatient(Patient patient)throws DAOException;
+public interface IDrugService{
+    void add(Drug entity)throws DAOException;
+    void delete(int id)throws DAOException;
+    void update(Drug entity) throws DAOException;
+    Drug getById(int id)throws DAOException;
+//    List<Drug> getByPatient(Patient patient)throws DAOException;
     List<Drug> getAll()throws DAOException;
 }

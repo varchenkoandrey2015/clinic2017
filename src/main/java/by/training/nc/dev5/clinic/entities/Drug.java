@@ -1,8 +1,5 @@
 package by.training.nc.dev5.clinic.entities;
 
-import by.training.nc.dev5.clinic.entities.AbstractPrescribing;
-import by.training.nc.dev5.clinic.entities.Patient;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -10,23 +7,51 @@ import java.util.List;
 /**
  * Created by user on 25.04.2017.
  */
-@NamedQueries({@NamedQuery(name = "Drug.getByPatient", query = "SELECT a FROM Drug a JOIN a.patients b WHERE b.id=?1"),
-        @NamedQuery(name = "Drug.findAll", query = "SELECT o FROM Drug o")})
+@NamedQueries({@NamedQuery(name = "Drug.findAll", query = "SELECT o FROM Drug o")})
 
 @Entity
-public class Drug extends AbstractPrescribing implements Serializable {
+public class Drug implements Serializable {
 
-    private List<Patient> patients;
+    private Integer drugId;
+    private String name;
+    private String description;
+    private List<PatientDrug> patientDrugs;
 
-    @ManyToMany
-    @JoinTable(name = "patient_drug",
-            joinColumns = @JoinColumn(name = "drugId"),
-            inverseJoinColumns = @JoinColumn(name = "patientId"))
-    public List<Patient> getPatients() {
-        return patients;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "drugId")
+    public Integer getDrugId() {
+        return drugId;
     }
 
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
+    public void setDrugId(Integer drugId) {
+        this.drugId = drugId;
+    }
+
+    @Column(name = "name", nullable = false)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @OneToMany(mappedBy = "drug")
+    public List<PatientDrug> getPatientDrugs() {
+        return patientDrugs;
+    }
+
+    public void setPatientDrugs(List<PatientDrug> patientDrugs) {
+        this.patientDrugs = patientDrugs;
     }
 }

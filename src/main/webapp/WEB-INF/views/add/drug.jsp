@@ -1,31 +1,41 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <html>
 <head>
     <title><s:message code="add.title"/></title>
-    <link href="${pageContext.request.contextPath}/resources/css/page_style.css" rel="stylesheet" >
+    <link href="${pageContext.request.contextPath}/resources/css/page_style.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="header" align="left">
-            <%@include file="../elements/header_with_logout.jsp" %>
-        </div>
-
-        <div align="center">
-            <form name="addDrugForm" method="POST" action="/adddrug">
-                <s:message code="prescribings.name"/><br />
-                <input type="text" name="drugName" value="" />
-                <s:message var="button" code="common.submit"/>
-                <input type="hidden" name="<c:out value="${_csrf.parameterName}"/>" value="<c:out value="${_csrf.token}"/>"/>
-                <input type="submit" value="${button}" /> <br />
-                ${operationMessage}  <br />
-            </form>
-        </div>
-        <div class="footer" align="center">
-            <%@include file="../elements/footer.jsp" %>
-        </div>
+<div class="container">
+    <div class="header" align="left">
+        <%@include file="../elements/header_with_logout.jsp" %>
     </div>
+
+    <form name="addDrugForm" method="POST" action="/adddrug">
+        <div class="fields-container">
+            <input type="hidden" name="drugId" value="${drugId}"/>
+            <div class="field">
+                <s:message code="prescribings.name"/>
+                <input class="input-field" type="text" name="drugName" value="${drugName}"/>
+            </div>
+            <div class="field">
+                <s:message code="prescribings.description"/>
+                <input class="input-field" type="text" name="drugDescription" value="${drugDescription}"/>
+            </div>
+
+            <s:message var="button" code="common.submit"/>
+            <input type="hidden" name="<c:out value="${_csrf.parameterName}"/>"
+                   value="<c:out value="${_csrf.token}"/>"/>
+            <input type="submit" value="${button}"/>
+            ${operationMessage}
+        </div>
+    </form>
+
+    <div class="footer" align="center">
+        <%@include file="../elements/footer.jsp" %>
+    </div>
+</div>
 </body>
 </html>

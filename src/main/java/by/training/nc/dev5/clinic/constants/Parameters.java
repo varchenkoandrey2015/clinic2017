@@ -19,10 +19,13 @@ public class Parameters {
     public static final String PATIENT_EMAIL = "patientEmail";
     public static final String DIAGNOSIS_ID = "diagnosisId";
     public static final String DIAGNOSIS_NAME = "diagnosisName";
+    public static final String DIAGNOSIS_DESC = "diagnosisDescription";
     public static final String DRUG_ID = "drugId";
     public static final String DRUG_NAME = "drugName";
+    public static final String DRUG_DESC = "drugDescription";
     public static final String MEDPROCEDURE_ID = "medProcedureId";
     public static final String MEDPROCEDURE_NAME = "medProcedureName";
+    public static final String MEDPROCEDURE_DESC = "medProcedureDescription";
     public static final String USER = "user";
     public static final String OPERATION_MESSAGE = "operationMessage";
     public static final String WRONG_LOGIN_OR_PASSWORD = "errorLoginOrPassword";

@@ -8,8 +8,10 @@ import java.util.List;
 /**
  * Created by user on 07.05.2017.
  */
-public interface IPatientService extends IService<Patient>{
+public interface IPatientService{
+    void add(Patient entity)throws DAOException;
+    void delete(int id)throws DAOException;
     List<Patient> getAll()throws DAOException;
-    boolean isNewPatient(String name)throws DAOException;
+//    boolean isNewPatient(String name)throws DAOException;
     Patient getById(int id)throws DAOException;
 }

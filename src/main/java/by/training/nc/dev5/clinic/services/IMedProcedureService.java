@@ -9,7 +9,11 @@ import java.util.List;
 /**
  * Created by user on 07.05.2017.
  */
-public interface IMedProcedureService extends IService<MedProcedure>{
-    List<MedProcedure> getByPatient(Patient patient)throws DAOException;
+public interface IMedProcedureService{
+    void add(MedProcedure entity)throws DAOException;
+    void delete(int id)throws DAOException;
+    void update(MedProcedure entity) throws DAOException;
+    MedProcedure getById(int id)throws DAOException;
+//    List<MedProcedure> getByPatient(Patient patient)throws DAOException;
     List<MedProcedure> getAll()throws DAOException;
 }

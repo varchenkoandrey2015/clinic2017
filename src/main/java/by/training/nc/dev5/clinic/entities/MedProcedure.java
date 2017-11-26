@@ -1,8 +1,5 @@
 package by.training.nc.dev5.clinic.entities;
 
-import by.training.nc.dev5.clinic.entities.AbstractPrescribing;
-import by.training.nc.dev5.clinic.entities.Patient;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -10,23 +7,51 @@ import java.util.List;
 /**
  * Created by user on 25.04.2017.
  */
-@NamedQueries({@NamedQuery(name = "MedProcedure.getByPatient", query = "SELECT a FROM MedProcedure a JOIN a.patients b WHERE b.id=?11"),
-        @NamedQuery(name = "MedProcedure.findAll", query = "SELECT o FROM MedProcedure o")})
+@NamedQueries({@NamedQuery(name = "MedProcedure.findAll", query = "SELECT o FROM MedProcedure o")})
 
 @Entity
-public class MedProcedure extends AbstractPrescribing implements Serializable {
+public class MedProcedure implements Serializable {
 
-    private List<Patient> patients;
+    private Integer medProcedureId;
+    private String name;
+    private String description;
+    private List<PatientMedProcedure> patientMedProcedures;
 
-    @ManyToMany
-    @JoinTable(name = "patient_medprocedure",
-            joinColumns = @JoinColumn(name = "medprocedureId"),
-            inverseJoinColumns = @JoinColumn(name = "patientId"))
-    public List<Patient> getPatients() {
-        return patients;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "medProcedureId")
+    public Integer getMedProcedureId() {
+        return medProcedureId;
     }
 
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
+    public void setMedProcedureId(Integer medProcedureId) {
+        this.medProcedureId = medProcedureId;
+    }
+
+    @Column(name = "name", nullable = false)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @OneToMany(mappedBy = "medProcedure")
+    public List<PatientMedProcedure> getPatientMedProcedures() {
+        return patientMedProcedures;
+    }
+
+    public void setPatientMedProcedures(List<PatientMedProcedure> patientMedProcedures) {
+        this.patientMedProcedures = patientMedProcedures;
     }
 }

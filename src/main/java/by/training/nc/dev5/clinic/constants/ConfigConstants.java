@@ -5,7 +5,7 @@ package by.training.nc.dev5.clinic.constants;
  */
 public class ConfigConstants {
 
-    public static final int MAX_STRING_LENGTH = 50;
+    public static final int MAX_STRING_LENGTH = 255;
 
     public static final String CONFIGS_SOURCE = "configs";
 

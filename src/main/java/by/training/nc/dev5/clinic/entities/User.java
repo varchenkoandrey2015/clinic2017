@@ -12,12 +12,24 @@ import java.io.Serializable;
  */
 @Entity
 @Component
-public class User extends AbstractEntity implements Serializable{
+public class User implements Serializable{
 
+    private Integer userId;
     private String login;
     private String password;
 
-    @Column(name = "login")
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "userId")
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    @Column(name = "login", nullable = false)
     public String getLogin() {
         return login;
     }
@@ -27,7 +39,7 @@ public class User extends AbstractEntity implements Serializable{
     }
 
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }

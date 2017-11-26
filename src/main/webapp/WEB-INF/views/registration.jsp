@@ -25,13 +25,6 @@
                         <td><s:message code="common.password"/></td>
                         <td><sform:input type="password" path="password" value="" size="20" /></td>
                     </tr>
-                    <tr>
-                        <td><s:message code="registration.accesslevel"/></td>
-                        <td>
-                            <sform:radiobutton path="accessLevel" value="DOCTOR"/><s:message code="registration.doctor"/><br/>
-                            <sform:radiobutton path="accessLevel" value="NURSE"/><s:message code="registration.nurse"/>
-                        </td>
-                    </tr>
                 </table>
                 <sform:button><s:message code="common.submit"/></sform:button><br />
                 ${operationMessage}<br />

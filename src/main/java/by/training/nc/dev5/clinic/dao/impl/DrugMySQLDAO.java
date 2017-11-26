@@ -1,6 +1,5 @@
 package by.training.nc.dev5.clinic.dao.impl;
 
-import by.training.nc.dev5.clinic.dao.AbstractDAO;
 import by.training.nc.dev5.clinic.entities.Drug;
 import by.training.nc.dev5.clinic.dao.IDrugDAO;
 import by.training.nc.dev5.clinic.entities.Patient;
@@ -16,22 +15,70 @@ import java.util.List;
  * Created by user on 06.04.2017.
  */
 @Repository
-public class  DrugMySQLDAO extends AbstractDAO<Drug> implements IDrugDAO {
+public class  DrugMySQLDAO implements IDrugDAO {
 
-    private DrugMySQLDAO(){
-        super(Drug.class);
+    public void add(Drug entity) throws DAOException {
+        EntityManager entityManager = HibernateUtil.getEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(entity);
+        } catch (Exception e){
+            entityManager.getTransaction().rollback();
+            throw new DAOException(e.getMessage());
+        }finally {
+            entityManager.flush();
+            entityManager.getTransaction().commit();
+        }
     }
 
-    public List<Drug> getByPatient(Patient patient)throws DAOException{
+    public void delete(int id) throws DAOException{
+        EntityManager entityManager = HibernateUtil.getEntityManager();
+        try {
+            Drug entity = entityManager.find(Drug.class, id);
+            entityManager.getTransaction().begin();
+            entityManager.remove(entity);
+        } catch (Exception e){
+            entityManager.getTransaction().rollback();
+            throw new DAOException(e.getMessage());
+        }finally {
+            entityManager.flush();
+            entityManager.getTransaction().commit();
+        }
+    }
+
+    public void update(Drug entity) throws DAOException {
+        EntityManager entityManager = HibernateUtil.getEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
+        } catch (Exception e){
+            entityManager.getTransaction().rollback();
+            throw new DAOException(e.getMessage());
+        }finally {
+            entityManager.flush();
+            entityManager.getTransaction().commit();
+        }
+    }
+
+    public Drug getById(int id)throws DAOException{
         try {
             EntityManager entityManager = HibernateUtil.getEntityManager();
-            Query query = entityManager.createNamedQuery("Drug.getByPatient");
-            query.setParameter(1, patient.getId());
-            return (List<Drug>) query.getResultList();
-        } catch (Exception e){
+            return entityManager.find(Drug.class, id);
+        }catch (Exception e) {
             throw new DAOException(e.getMessage());
         }
     }
+
+//    public List<Drug> getByPatient(Patient patient)throws DAOException{
+//        try {
+//            EntityManager entityManager = HibernateUtil.getEntityManager();
+//            Query query = entityManager.createNamedQuery("Drug.getByPatient");
+//            query.setParameter(1, patient.getPatientId());
+//            return (List<Drug>) query.getResultList();
+//        } catch (Exception e){
+//            throw new DAOException(e.getMessage());
+//        }
+//    }
 
     @Override
     public List<Drug> getAll() throws DAOException {
