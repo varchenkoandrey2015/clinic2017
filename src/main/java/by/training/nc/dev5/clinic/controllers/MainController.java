@@ -245,7 +245,7 @@ public class MainController {
         return pagePath;
     }
 
-    @RequestMapping(value = "/editpatient", method = RequestMethod.POST)
+    @RequestMapping(value = "/editpatient", method = RequestMethod.GET)
     public String editPatient(@RequestParam(value = Parameters.PATIENT_ID, required = false) String patientId,
                                 HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
         try {
@@ -259,6 +259,34 @@ public class MainController {
                 request.setAttribute(Parameters.PATIENT_ADDRESS, patient.getAddress());
                 request.setAttribute(Parameters.PATIENT_PHONE, patient.getPhone());
                 return pagePathManager.getProperty(ConfigConstants.ADD_PATIENT);
+            } else {
+                redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.EMPTY_CHOICE, null, locale));
+                return "redirect:/menu";
+            }
+        } catch (DAOException e) {
+            return "redirect:/error";
+        }
+    }
+
+    @RequestMapping(value = "/openpatient", method = RequestMethod.GET)
+    public String showPatient(){
+        return pagePathManager.getProperty(ConfigConstants.SHOW_PATIENT);
+    }
+
+    @RequestMapping(value = "/openpatient", method = RequestMethod.POST)
+    public String openPatient(@RequestParam(value = Parameters.PATIENT_ID, required = false) String patientId,
+                              HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
+        try {
+            if (patientId != null) {
+                Patient patient = patientService.getById(Integer.parseInt(patientId));
+                request.setAttribute(Parameters.PATIENT_ID, patientId);
+                request.setAttribute(Parameters.PATIENT_FIRSTNAME, patient.getFirstName());
+                request.setAttribute(Parameters.PATIENT_MIDDLENAME, patient.getMiddleName());
+                request.setAttribute(Parameters.PATIENT_LASTNAME, patient.getLastName());
+                request.setAttribute(Parameters.PATIENT_DIAGNOSIS_LIST, patient.getPatientDiagnoses());
+                request.setAttribute(Parameters.PATIENT_DRUGS_LIST, patient.getPatientDrugs());
+                request.setAttribute(Parameters.PATIENT_MEDPROCEDURES_LIST, patient.getPatientMedProcedures());
+                return pagePathManager.getProperty(ConfigConstants.SHOW_PATIENT);
             } else {
                 redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.EMPTY_CHOICE, null, locale));
                 return "redirect:/menu";

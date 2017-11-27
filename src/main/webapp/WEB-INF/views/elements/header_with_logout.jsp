@@ -12,24 +12,6 @@
                     <input type="submit" value="${button}" align="center"/>  <br/>
                 </form>
             </td>
-            <td style="padding: 5px;">
-                <a href="?locale=ru">
-                    <img src="${pageContext.request.contextPath}/resources/img/ru.png"
-                         height="20"
-                         width="20"
-                         style="display:block;"
-                    />
-                </a>
-            </td>
-            <td style="padding: 5px;">
-                <a href="?locale=en">
-                    <img src="${pageContext.request.contextPath}/resources/img/gb.png"
-                         height="20"
-                         width="20"
-                         style="display:block;"
-                    />
-                </a>
-            </td>
         </tr>
     </table>
 </div>

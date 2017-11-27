@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by user on 22.04.2017.
  */
-@Service
+@Service("diagS")
 public class DiagnosisService implements IDiagnosisService {
     private IDiagnosisDAO diagnosisDAO;
 
