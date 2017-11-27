@@ -110,7 +110,9 @@
                     <div class="button-item">
                         <s:message var="button" code="open.title"/>
                         <input class="button" type="submit" value="${button}"
-                               onclick= "document.choosePatientForm.action = '/openpatient';document.choosePatientForm.submit()"/>
+                               onclick= "document.choosePatientForm.action = '/showpatient';
+                                document.choosePatientForm.method = 'GET';
+                                document.choosePatientForm.submit()"/>
                     </div>
                     <div class="button-item">
                         <a class="button" href="/addpatient"><s:message code="add.title"/></a>

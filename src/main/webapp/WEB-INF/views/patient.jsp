@@ -14,15 +14,8 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/datatables.css">
     <script type="text/javascript" charset="utf8"
             src="${pageContext.request.contextPath}/resources/js/datatables.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/select2.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/select2.min.css">
 </head>
 <body>
-<%--<script type="text/javascript">--%>
-<%--$(document).ready(function () {--%>
-<%--$('.diagnosisesSelect').select2();--%>
-<%--});--%>
-<%--</script>--%>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#diagnosisTable').DataTable();
@@ -67,6 +60,9 @@
     <%@include file="elements/header_with_logout.jsp" %>
 </div>
 
+<div class="text-large">
+    <c:out value="${patientFirstName} ${patientMiddleName} ${patientLastName}"/>
+</div>
 <div class="tabs">
     <ul>
         <li><s:message code="menu.diagonisises"/></li>
@@ -81,6 +77,7 @@
                     <thead>
                     <tr>
                         <th><s:message code="prescribings.name"/></th>
+                        <th><s:message code="prescribings.description"/></th>
                         <th><s:message code="prescribings.startdate"/></th>
                         <th><s:message code="prescribings.enddate"/></th>
                     </tr>
@@ -91,9 +88,13 @@
                         <tr>
                             <td>
                                 <label>
-                                    <input type="radio" name="patientDiagnosisId" value="${ patientDiagnosis.patientDiagnosisId }"/>
-                                    <%--<c:out value="<%=diagnosisService.getById(((PatientDiagnosis)request.getAttribute("patientDiagnosis")).getPatientDiagnosisId()).getName()%>"/>--%>
+                                    <input type="radio" name="patientDiagnosisId"
+                                           value="${ patientDiagnosis.patientDiagnosisId }"/>
+                                    <c:out value="<%=diagnosisService.getById(patientDiagnosis.getDiagnosis().getDiagnosisId()).getName()%>"/>
                                 </label>
+                            </td>
+                            <td>
+                                <c:out value="<%=diagnosisService.getById(patientDiagnosis.getDiagnosis().getDiagnosisId()).getDescription()%>"/>
                             </td>
                             <td>
                                 <c:out value="${ patientDiagnosis.startDate }"/>
@@ -108,23 +109,23 @@
 
                 <input type="hidden" name="<c:out value="${_csrf.parameterName}"/>"
                        value="<c:out value="${_csrf.token}"/>"/>
-                <%--<div class="button-row">--%>
-                <%--<div class="button-item">--%>
-                <%--<a class="button" href="/adddiagnosis"><s:message code="add.title"/></a>--%>
-                <%--</div>--%>
+                <div class="button-row">
+                    <div class="button-item">
+                        <a class="button" href="/addpatientdiagnosis"><s:message code="add.title"/></a>
+                    </div>
 
-                <%--<div class="button-item">--%>
-                <%--<s:message var="button" code="edit.title"/>--%>
-                <%--<input class="button" type="submit" value="${button}"--%>
-                <%--onclick="document.diagnosisListForm.action = '/editdiagnosis';document.diagnosisListForm.submit()"/>--%>
-                <%--</div>--%>
+                    <%--<div class="button-item">--%>
+                    <%--<s:message var="button" code="edit.title"/>--%>
+                    <%--<input class="button" type="submit" value="${button}"--%>
+                    <%--onclick="document.diagnosisListForm.action = '/editdiagnosis';document.diagnosisListForm.submit()"/>--%>
+                    <%--</div>--%>
 
-                <%--<div class="button-item">--%>
-                <%--<s:message var="button" code="del.title"/>--%>
-                <%--<input class="button" type="submit" value="${button}"--%>
-                <%--onclick="document.diagnosisListForm.action = '/deldiagnosis';document.diagnosisListForm.submit()"/>--%>
-                <%--</div>--%>
-                <%--</div>--%>
+                    <%--<div class="button-item">--%>
+                    <%--<s:message var="button" code="del.title"/>--%>
+                    <%--<input class="button" type="submit" value="${button}"--%>
+                    <%--onclick="document.diagnosisListForm.action = '/deldiagnosis';document.diagnosisListForm.submit()"/>--%>
+                    <%--</div>--%>
+                </div>
             </form>
         </div>
 

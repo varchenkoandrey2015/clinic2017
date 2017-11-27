@@ -19,4 +19,7 @@ public class ConfigConstants {
     public static final String ADD_DIAGNOSIS = "path.page.add.diagnosis";
     public static final String ADD_DRUG = "path.page.add.drug";
     public static final String ADD_MEDPROCEDURE = "path.page.add.medprocedure";
+    public static final String ADD_PATIENT_DIAGNOSIS = "path.page.add.patient.diagnosis";
+    public static final String ADD_PATIENT_DRUG = "path.page.add.patient.drug";
+    public static final String ADD_PATIENT_MEDPROCEDURE = "path.page.add.patient.medprocedure";
 }

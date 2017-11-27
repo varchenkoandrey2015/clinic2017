@@ -12,14 +12,22 @@
         <intercept-url pattern="/index" access="permitAll"/>
         <intercept-url pattern="/menu" access="hasAnyRole('ROLE_USER')"/>
         <intercept-url pattern="/patient" access="hasAnyRole('ROLE_USER')"/>
+        <intercept-url pattern="/delpatient" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/deldiagnosis" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/deldrug" access="hasAnyRole('ROLE_USER')"/>
         <intercept-url pattern="/delmedprocedure" access="hasAnyRole('ROLE_USER')"/>
         <intercept-url pattern="/addpatient" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/adddiagnosis" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/adddrug" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/addmedprocedure" access="hasRole('ROLE_USER')"/>
-        <intercept-url pattern="/deldiagnosis" access="hasRole('ROLE_USER')"/>
-        <intercept-url pattern="/delpatient" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/addpatientdiagnosis" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/addpatientdrug" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/addpatientmedprocedure" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/delpatientdiagnosis" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/delpatientdrug" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/delpatientmedprocedure" access="hasRole('ROLE_USER')"/>
+
+
         <form-login login-page="/index"
                     username-parameter="login"
                     password-parameter="password"

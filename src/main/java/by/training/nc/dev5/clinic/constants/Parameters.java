@@ -11,7 +11,6 @@ public class Parameters {
     public static final String PATIENT_DIAGNOSIS_LIST = "patientDiagnosises";
     public static final String PATIENT_DRUGS_LIST = "patientDrugs";
     public static final String PATIENT_MEDPROCEDURES_LIST = "patientMedProcedures";
-    public static final String PATIENT_SURGERIES_LIST = "patientSurgeries";
     public static final String PATIENT_ID = "patientId";
     public static final String PATIENT_FIRSTNAME = "patientFirstName";
     public static final String PATIENT_MIDDLENAME = "patientMiddleName";
