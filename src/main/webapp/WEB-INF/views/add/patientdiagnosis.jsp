@@ -15,8 +15,12 @@
 <body>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#diagnosisesSelect').select2();
+        $('#diagnosisId').select2();
         $('#startDate').datetimepicker({
+            timepicker:false,
+            format:'d.m.Y'
+        });
+        $('#endDate').datetimepicker({
             timepicker:false,
             format:'d.m.Y'
         });
@@ -28,11 +32,9 @@
     </div>
     <form name="addPatientDiagnosisForm" method="POST" action="/addpatientdiagnosis">
         <div class="fields-container">
-
-            <input type="hidden" name="diagnosisId" value="${diagnosisId}"/>
             <div class="field">
                 <s:message code="prescribings.name"/>
-                <select class="input-field" id="diagnosisesSelect">
+                <select class="input-field" name="diagnosisId" id="diagnosisId">
                     <c:forEach items="${allDiagnosises}" var="diagnosis">
                         <option value="${diagnosis.diagnosisId}"> ${diagnosis.name} </option>
                     </c:forEach>
@@ -40,7 +42,11 @@
             </div>
             <div class="field">
                 <s:message code="prescribings.startdate"/>
-                <input class="input-field" id="startDate" type="text">
+                <input class="input-field" name="startDate" id="startDate" type="text">
+            </div>
+            <div class="field">
+                <s:message code="prescribings.enddate"/>
+                <input class="input-field" name="endDate" id="endDate" type="text">
             </div>
 
             <s:message var="button" code="common.submit"/>

@@ -4,12 +4,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@NamedQueries({@NamedQuery(name = "PatientDrug.getByPatient", query = "SELECT a FROM PatientDrug a WHERE a.patient=?1")})
+
 @Entity
 public class PatientDrug implements Serializable {
     private Integer patientDrugId;
     private Patient patient;
     private Drug drug;
-    private Date startDate;
+    private String startDate;
     private Integer days;
 
     @Id
@@ -44,12 +46,11 @@ public class PatientDrug implements Serializable {
     }
 
     @Column(name = "startDate", nullable = false)
-    @Temporal(TemporalType.DATE)
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 

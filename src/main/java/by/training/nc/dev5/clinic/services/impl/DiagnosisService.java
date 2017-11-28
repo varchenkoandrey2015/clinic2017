@@ -22,10 +22,6 @@ public class DiagnosisService implements IDiagnosisService {
         this.diagnosisDAO=diagnosisDAO;
     }
 
-//    public List<Diagnosis> getByPatient(Patient patient)throws DAOException {
-//        return diagnosisDAO.getByPatient(patient);
-//    }
-
     public void add(Diagnosis diagnosis)throws DAOException{
         diagnosisDAO.add(diagnosis);
     }

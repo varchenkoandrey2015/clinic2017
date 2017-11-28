@@ -1,11 +1,7 @@
 package by.training.nc.dev5.clinic.controllers;
 
 import by.training.nc.dev5.clinic.constants.*;
-import by.training.nc.dev5.clinic.entities.Patient;
-import by.training.nc.dev5.clinic.entities.User;
-import by.training.nc.dev5.clinic.entities.Diagnosis;
-import by.training.nc.dev5.clinic.entities.Drug;
-import by.training.nc.dev5.clinic.entities.MedProcedure;
+import by.training.nc.dev5.clinic.entities.*;
 import by.training.nc.dev5.clinic.exceptions.DAOException;
 import by.training.nc.dev5.clinic.managers.PagePathManager;
 import by.training.nc.dev5.clinic.services.*;
@@ -22,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Parameter;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -40,6 +38,12 @@ public class MainController {
     private IMedProcedureService medProcedureService;
     @Autowired
     private IPatientService patientService;
+    @Autowired
+    private IPatientDiagnosisService patientDiagnosisService;
+    @Autowired
+    private IPatientDrugService patientDrugService;
+    @Autowired
+    private IPatientMedProcedureService patientMedProcedureService;
     @Autowired
     private PagePathManager pagePathManager;
     @Autowired
@@ -168,6 +172,36 @@ public class MainController {
         return pagePathManager.getProperty(ConfigConstants.ADD_PATIENT_DIAGNOSIS);
     }
 
+    @RequestMapping(value = "/addpatientdiagnosis", method = RequestMethod.POST)
+    public String addPatientDiagnosis(@RequestParam(value = Parameters.DIAGNOSIS_ID, required = false) String id,
+                                      @RequestParam(value = Parameters.PRESCRIBING_STARTDATE, required = false) String startDate,
+                                      @RequestParam(value = Parameters.PRESCRIBING_ENDDATE, required = false) String endDate,
+                                      ModelMap model, HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
+        String pagePath;
+        HttpSession session = request.getSession();
+        try {
+            if (!id.isEmpty() && !startDate.toString().isEmpty()) {
+                PatientDiagnosis patientDiagnosis = new PatientDiagnosis();
+                Patient patient = patientService.getById(Integer.parseInt((String) session.getAttribute(Parameters.PATIENT_ID)));
+                patientDiagnosis.setPatient(patient);
+                patientDiagnosis.setDiagnosis(diagnosisService.getById(Integer.parseInt(id)));
+                patientDiagnosis.setStartDate(startDate);
+                patientDiagnosis.setEndDate(endDate);
+                patientDiagnosisService.add(patientDiagnosis);
+                session.setAttribute(Parameters.PATIENT_DIAGNOSIS_LIST, patientDiagnosisService.getByPatient(patient));
+                redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.SUCCESS_OPERATION, null, locale));
+                return pagePathManager.getProperty(ConfigConstants.SHOW_PATIENT);
+
+            } else {
+                model.put(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.EMPTY_FIELDS, null, locale));
+                pagePath = pagePathManager.getProperty(ConfigConstants.ADD_PATIENT_DIAGNOSIS);
+            }
+        } catch (DAOException e) {
+            return "redirect:/error";
+        }
+        return pagePath;
+    }
+
     @RequestMapping(value = "/adddrug", method = RequestMethod.GET)
     public String showAddDrugForm() {
         return pagePathManager.getProperty(ConfigConstants.ADD_DRUG);
@@ -252,7 +286,7 @@ public class MainController {
 
     @RequestMapping(value = "/editpatient", method = RequestMethod.GET)
     public String editPatient(@RequestParam(value = Parameters.PATIENT_ID, required = false) String patientId,
-                                HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
+                              HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
         try {
             if (patientId != null) {
                 Patient patient = patientService.getById(Integer.parseInt(patientId));

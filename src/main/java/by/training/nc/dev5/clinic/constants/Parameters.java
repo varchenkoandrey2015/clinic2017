@@ -27,6 +27,8 @@ public class Parameters {
     public static final String MEDPROCEDURE_ID = "medProcedureId";
     public static final String MEDPROCEDURE_NAME = "medProcedureName";
     public static final String MEDPROCEDURE_DESC = "medProcedureDescription";
+    public static final String PRESCRIBING_STARTDATE = "startDate";
+    public static final String PRESCRIBING_ENDDATE = "endDate";
     public static final String USER = "user";
     public static final String OPERATION_MESSAGE = "operationMessage";
     public static final String WRONG_LOGIN_OR_PASSWORD = "errorLoginOrPassword";

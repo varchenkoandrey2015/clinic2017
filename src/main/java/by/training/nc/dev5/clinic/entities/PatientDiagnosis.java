@@ -4,13 +4,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@NamedQueries({@NamedQuery(name = "PatientDiagnosis.getByPatient", query = "SELECT a FROM PatientDiagnosis a WHERE a.patient=?1")})
+
 @Entity
 public class PatientDiagnosis implements Serializable {
     private Integer patientDiagnosisId;
     private Patient patient;
     private Diagnosis diagnosis;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -45,22 +47,20 @@ public class PatientDiagnosis implements Serializable {
 
 
     @Column(name = "startDate", nullable = false)
-    @Temporal(TemporalType.DATE)
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
     @Column(name = "endDate")
-    @Temporal(TemporalType.DATE)
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 }
