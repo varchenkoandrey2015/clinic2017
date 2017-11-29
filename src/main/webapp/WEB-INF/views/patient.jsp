@@ -113,12 +113,13 @@
                     <div class="button-item">
                         <a class="button" href="/addpatientdiagnosis"><s:message code="add.title"/></a>
                     </div>
-
-                    <%--<div class="button-item">--%>
-                    <%--<s:message var="button" code="edit.title"/>--%>
-                    <%--<input class="button" type="submit" value="${button}"--%>
-                    <%--onclick="document.diagnosisListForm.action = '/editdiagnosis';document.diagnosisListForm.submit()"/>--%>
-                    <%--</div>--%>
+                    <div class="button-item">
+                        <s:message var="button" code="edit.title"/>
+                        <input class="button" type="submit" value="${button}"
+                               onclick= "document.diagnosisListForm.action = '/editpatientdiagnosis';
+                               document.diagnosisListForm.method = 'GET';
+                               document.diagnosisListForm.submit()"/>
+                    </div>
 
                     <%--<div class="button-item">--%>
                     <%--<s:message var="button" code="del.title"/>--%>

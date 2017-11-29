@@ -11,4 +11,5 @@ public interface IPatientMedProcedureService {
     void delete(int id)throws DAOException;
     void update(PatientMedProcedure entity) throws DAOException;
     List<PatientMedProcedure> getByPatient(Patient patient) throws DAOException;
+    PatientMedProcedure getById(int id) throws DAOException;
 }

@@ -11,4 +11,5 @@ public interface IPatientDiagnosisDAO {
     void delete(int id)throws DAOException;
     void update(PatientDiagnosis entity) throws DAOException;
     List<PatientDiagnosis> getByPatient(Patient patient) throws DAOException;
+    PatientDiagnosis getById(int id) throws DAOException;
 }

@@ -68,4 +68,13 @@ public class PatientDiagnosisMySQLDAO implements IPatientDiagnosisDAO {
         }
     }
 
+    @Override
+    public PatientDiagnosis getById(int id) throws DAOException {
+        try {
+            EntityManager entityManager = HibernateUtil.getEntityManager();
+            return entityManager.find(PatientDiagnosis.class, id);
+        }catch (Exception e) {
+            throw new DAOException(e.getMessage());
+        }
+    }
 }

@@ -11,11 +11,6 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/select2.min.css">
 </head>
 <body>
-<%--<script type="text/javascript">--%>
-<%--$(document).ready(function () {--%>
-<%--$('.diagnosisesSelect').select2();--%>
-<%--});--%>
-<%--</script>--%>
 <div class="container">
     <div class="header" align="left">
         <%@include file="../elements/header_with_logout.jsp" %>

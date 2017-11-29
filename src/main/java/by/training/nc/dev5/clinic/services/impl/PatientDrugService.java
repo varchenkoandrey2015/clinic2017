@@ -39,4 +39,9 @@ public class PatientDrugService implements IPatientDrugService{
     public List<PatientDrug> getByPatient(Patient patient) throws DAOException {
         return patientDrugDAO.getByPatient(patient);
     }
+
+    @Override
+    public PatientDrug getById(int id) throws DAOException {
+        return patientDrugDAO.getById(id);
+    }
 }

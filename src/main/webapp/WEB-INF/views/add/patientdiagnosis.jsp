@@ -32,21 +32,29 @@
     </div>
     <form name="addPatientDiagnosisForm" method="POST" action="/addpatientdiagnosis">
         <div class="fields-container">
+            <input type="hidden" name="patientDiagnosisId" value="${patientDiagnosisId}"/>
             <div class="field">
                 <s:message code="prescribings.name"/>
                 <select class="input-field" name="diagnosisId" id="diagnosisId">
                     <c:forEach items="${allDiagnosises}" var="diagnosis">
-                        <option value="${diagnosis.diagnosisId}"> ${diagnosis.name} </option>
+                        <c:choose>
+                            <c:when test="${diagnosis.diagnosisId==patientDiagnosisDiagnosis.diagnosisId}">
+                                <option selected value="${diagnosis.diagnosisId}"> ${diagnosis.name} </option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${diagnosis.diagnosisId}"> ${diagnosis.name} </option>
+                            </c:otherwise>
+                        </c:choose>
                     </c:forEach>
                 </select>
             </div>
             <div class="field">
                 <s:message code="prescribings.startdate"/>
-                <input class="input-field" name="startDate" id="startDate" type="text">
+                <input class="input-field" name="startDate" id="startDate" type="text" value="${startDate}">
             </div>
             <div class="field">
                 <s:message code="prescribings.enddate"/>
-                <input class="input-field" name="endDate" id="endDate" type="text">
+                <input class="input-field" name="endDate" id="endDate" type="text" value="${endDate}">
             </div>
 
             <s:message var="button" code="common.submit"/>
