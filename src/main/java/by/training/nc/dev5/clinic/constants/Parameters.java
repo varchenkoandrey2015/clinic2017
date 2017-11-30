@@ -14,8 +14,8 @@ public class Parameters {
     public static final String PATIENT_MEDPROCEDURES_LIST = "patientMedProcedures";
 
     public static final String PATIENT_DIAGNOSIS_ID = "patientDiagnosisId";
-    public static final String PATIENT_DRUGS_ID = "patientDrugId";
-    public static final String PATIENT_MEDPROCEDURES_ID = "patientMedProcedureId";
+    public static final String PATIENT_DRUG_ID = "patientDrugId";
+    public static final String PATIENT_MEDPROCEDURE_ID = "patientMedProcedureId";
 
     public static final String PATIENT_ID = "patientId";
     public static final String PATIENT_FIRSTNAME = "patientFirstName";
@@ -38,11 +38,14 @@ public class Parameters {
     public static final String MEDPROCEDURE_DESC = "medProcedureDescription";
 
     public static final String PATIENT_DIAGNOSIS_DIAGNOSIS = "patientDiagnosisDiagnosis";
-    public static final String PATIENT_DIAGNOSIS_DRUG = "patientDiagnosisDrug";
-    public static final String PATIENT_DIAGNOSIS_MEDPROCEDURE = "patientDiagnosisMedProcedure";
+    public static final String PATIENT_DRUG_DRUG = "patientDrugDrug";
+    public static final String PATIENT_MEDPROCEDURE_MEDPROCEDURE = "patientMedProcedureMedProcedure";
 
     public static final String PRESCRIBING_STARTDATE = "startDate";
     public static final String PRESCRIBING_ENDDATE = "endDate";
+    public static final String PRESCRIBING_COUNT = "count";
+    public static final String PRESCRIBING_DAYS = "days";
+
     public static final String USER = "user";
     public static final String OPERATION_MESSAGE = "operationMessage";
     public static final String WRONG_LOGIN_OR_PASSWORD = "errorLoginOrPassword";

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by user on 22.04.2017.
  */
-@Service
+@Service("procS")
 public class MedProcedureService implements IMedProcedureService {
 
     private IMedProcedureDAO medProcedureDAO;

@@ -45,6 +45,8 @@ public class PatientMedProcedureMySQLDAO implements IPatientMedProcedureDAO{
         EntityManager entityManager = HibernateUtil.getEntityManager();
         try {
             PatientMedProcedure entity = entityManager.find(PatientMedProcedure.class, id);
+            entity.setPatient(null);
+            entity.setMedProcedure(null);
             entityManager.getTransaction().begin();
             entityManager.remove(entity);
         } catch (Exception e) {

@@ -1,5 +1,6 @@
 package by.training.nc.dev5.clinic.dao.impl;
 
+import by.training.nc.dev5.clinic.dao.IPatientDAO;
 import by.training.nc.dev5.clinic.dao.IPatientDiagnosisDAO;
 import by.training.nc.dev5.clinic.entities.Patient;
 import by.training.nc.dev5.clinic.entities.PatientDiagnosis;
@@ -46,6 +47,8 @@ public class PatientDiagnosisMySQLDAO implements IPatientDiagnosisDAO {
         EntityManager entityManager = HibernateUtil.getEntityManager();
         try {
             PatientDiagnosis entity = entityManager.find(PatientDiagnosis.class, id);
+            entity.setPatient(null);
+            entity.setDiagnosis(null);
             entityManager.getTransaction().begin();
             entityManager.remove(entity);
         } catch (Exception e) {

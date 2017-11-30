@@ -9,5 +9,6 @@ public class MessageConstants {
     public static final String EMPTY_CHOICE = "message.emptychoice";
     public static final String SUCCESS_OPERATION = "message.successoperation";
     public static final String EMPTY_FIELDS = "message.emptyfields";
+    public static final String WRONG_FORMAT = "message.wrongformat";
     public static final String TOO_LONG_STRING = "message.toolongstring";
 }

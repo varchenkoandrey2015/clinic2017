@@ -45,6 +45,8 @@ public class PatientDrugMySQLDAO implements IPatientDrugDAO{
         EntityManager entityManager = HibernateUtil.getEntityManager();
         try {
             PatientDrug entity = entityManager.find(PatientDrug.class, id);
+            entity.setPatient(null);
+            entity.setDrug(null);
             entityManager.getTransaction().begin();
             entityManager.remove(entity);
         } catch (Exception e) {

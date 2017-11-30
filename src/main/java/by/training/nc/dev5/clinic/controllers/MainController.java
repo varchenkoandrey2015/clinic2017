@@ -18,8 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.lang.reflect.Parameter;
-import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -183,6 +181,93 @@ public class MainController {
                 model.put(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.EMPTY_FIELDS, null, locale));
                 pagePath = pagePathManager.getProperty(ConfigConstants.ADD_PATIENT_DIAGNOSIS);
             }
+        } catch (DAOException e) {
+            return "redirect:/error";
+        }
+        return pagePath;
+    }
+
+    @RequestMapping(value = "/addpatientdrug", method = RequestMethod.GET)
+    public String showAddPatientDrugForm() {
+        return pagePathManager.getProperty(ConfigConstants.ADD_PATIENT_DRUG);
+    }
+
+    @RequestMapping(value = "/addpatientdrug", method = RequestMethod.POST)
+    public String addPatientDrug(@RequestParam(value = Parameters.PATIENT_DRUG_ID, required = false) String id,
+                                      @RequestParam(value = Parameters.DRUG_ID, required = false) String drugId,
+                                      @RequestParam(value = Parameters.PRESCRIBING_STARTDATE, required = false) String startDate,
+                                      @RequestParam(value = Parameters.PRESCRIBING_DAYS, required = false) String days,
+                                      ModelMap model, HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
+        String pagePath;
+        HttpSession session = request.getSession();
+        try {
+            if (!drugId.isEmpty() && !startDate.isEmpty()) {
+                PatientDrug patientDrug = new PatientDrug();
+                Patient patient = patientService.getById(Integer.parseInt((String) session.getAttribute(Parameters.PATIENT_ID)));
+                patientDrug.setPatient(patient);
+                patientDrug.setDrug(drugService.getById(Integer.parseInt(drugId)));
+                patientDrug.setStartDate(startDate);
+                patientDrug.setDays(Integer.valueOf(days));
+                if (!id.isEmpty()) {
+                    patientDrug.setPatientDrugId(Integer.parseInt(id));
+                    patientDrugService.update(patientDrug);
+                } else {
+                    patientDrugService.add(patientDrug);
+                }
+                session.setAttribute(Parameters.PATIENT_DRUGS_LIST, patientDrugService.getByPatient(patient));
+                redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.SUCCESS_OPERATION, null, locale));
+                return "redirect:/showpatient";
+
+            } else {
+                model.put(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.EMPTY_FIELDS, null, locale));
+                pagePath = pagePathManager.getProperty(ConfigConstants.ADD_PATIENT_DIAGNOSIS);
+            }
+        } catch (NumberFormatException nfe){
+            model.put(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.WRONG_FORMAT, null, locale));
+            pagePath = pagePathManager.getProperty(ConfigConstants.ADD_PATIENT_DRUG);
+        } catch (DAOException e) {
+            return "redirect:/error";
+        }
+        return pagePath;
+    }
+
+    @RequestMapping(value = "/addpatientmedprocedure", method = RequestMethod.GET)
+    public String showAddPatientMedProcedureForm() {
+        return pagePathManager.getProperty(ConfigConstants.ADD_PATIENT_MEDPROCEDURE);
+    }
+
+    @RequestMapping(value = "/addpatientmedprocedure", method = RequestMethod.POST)
+    public String addPatientMedProcedure(@RequestParam(value = Parameters.PATIENT_MEDPROCEDURE_ID, required = false) String id,
+                                 @RequestParam(value = Parameters.MEDPROCEDURE_ID, required = false) String medProcedureId,
+                                 @RequestParam(value = Parameters.PRESCRIBING_STARTDATE, required = false) String startDate,
+                                 @RequestParam(value = Parameters.PRESCRIBING_COUNT, required = false) String count,
+                                 ModelMap model, HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
+        String pagePath;
+        HttpSession session = request.getSession();
+        try {
+            if (!medProcedureId.isEmpty() && !startDate.isEmpty()) {
+                PatientMedProcedure patientMedProcedure = new PatientMedProcedure();
+                Patient patient = patientService.getById(Integer.parseInt((String) session.getAttribute(Parameters.PATIENT_ID)));
+                patientMedProcedure.setPatient(patient);
+                patientMedProcedure.setMedProcedure(medProcedureService.getById(Integer.parseInt(medProcedureId)));
+                patientMedProcedure.setStartDate(startDate);
+                patientMedProcedure.setCount(Integer.valueOf(count));
+                if (!id.isEmpty()) {
+                    patientMedProcedure.setPatientMedProcedureId(Integer.parseInt(id));
+                    patientMedProcedureService.update(patientMedProcedure);
+                } else {
+                    patientMedProcedureService.add(patientMedProcedure);
+                }
+                session.setAttribute(Parameters.PATIENT_MEDPROCEDURES_LIST, patientMedProcedureService.getByPatient(patient));
+                redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.SUCCESS_OPERATION, null, locale));
+                return "redirect:/showpatient";
+            } else {
+                model.put(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.EMPTY_FIELDS, null, locale));
+                pagePath = pagePathManager.getProperty(ConfigConstants.ADD_PATIENT_MEDPROCEDURE);
+            }
+        } catch (NumberFormatException nfe){
+            model.put(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.WRONG_FORMAT, null, locale));
+            pagePath = pagePathManager.getProperty(ConfigConstants.ADD_PATIENT_MEDPROCEDURE);
         } catch (DAOException e) {
             return "redirect:/error";
         }
@@ -358,6 +443,46 @@ public class MainController {
         }
     }
 
+    @RequestMapping(value = "/editpatientdrug", method = RequestMethod.GET)
+    public String editPatientDrug(@RequestParam(value = Parameters.PATIENT_DRUG_ID, required = false) String patientDrugId,
+                                       HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
+        try {
+            if (patientDrugId != null) {
+                PatientDrug patientDrug = patientDrugService.getById(Integer.parseInt(patientDrugId));
+                request.setAttribute(Parameters.PATIENT_DRUG_ID, patientDrugId);
+                request.setAttribute(Parameters.PATIENT_DRUG_DRUG, patientDrug.getDrug());
+                request.setAttribute(Parameters.PRESCRIBING_STARTDATE, patientDrug.getStartDate());
+                request.setAttribute(Parameters.PRESCRIBING_DAYS, String.valueOf(patientDrug.getDays()));
+                return pagePathManager.getProperty(ConfigConstants.ADD_PATIENT_DRUG);
+            } else {
+                redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.EMPTY_CHOICE, null, locale));
+                return "redirect:/patient";
+            }
+        } catch (DAOException e) {
+            return "redirect:/error";
+        }
+    }
+
+    @RequestMapping(value = "/editpatientmedprocedure", method = RequestMethod.GET)
+    public String editPatientMedProcedure(@RequestParam(value = Parameters.PATIENT_MEDPROCEDURE_ID, required = false) String patientMedProcedureId,
+                                       HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
+        try {
+            if (patientMedProcedureId != null) {
+                PatientMedProcedure patientMedProcedure = patientMedProcedureService.getById(Integer.parseInt(patientMedProcedureId));
+                request.setAttribute(Parameters.PATIENT_MEDPROCEDURE_ID, patientMedProcedureId);
+                request.setAttribute(Parameters.PATIENT_MEDPROCEDURE_MEDPROCEDURE, patientMedProcedure.getMedProcedure());
+                request.setAttribute(Parameters.PRESCRIBING_STARTDATE, patientMedProcedure.getStartDate());
+                request.setAttribute(Parameters.PRESCRIBING_COUNT, String.valueOf(patientMedProcedure.getCount()));
+                return pagePathManager.getProperty(ConfigConstants.ADD_PATIENT_MEDPROCEDURE);
+            } else {
+                redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.EMPTY_CHOICE, null, locale));
+                return "redirect:/patient";
+            }
+        } catch (DAOException e) {
+            return "redirect:/error";
+        }
+    }
+
     @RequestMapping(value = "/editdiagnosis", method = RequestMethod.POST)
     public String editDiagnosis(@RequestParam(value = Parameters.DIAGNOSIS_ID, required = false) String diagnosisId,
                                 HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
@@ -417,7 +542,6 @@ public class MainController {
 
 
 
-
     @RequestMapping(value = "/delpatient", method = RequestMethod.POST)
     public String delPatient(@RequestParam(value = Parameters.PATIENT_ID, required = false) String patientId, HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
@@ -430,6 +554,60 @@ public class MainController {
                 redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.EMPTY_CHOICE, null, locale));
             }
             return "redirect:/menu";
+        } catch (DAOException e) {
+            return "redirect:/error";
+        }
+    }
+
+    @RequestMapping(value = "/delpatientdiagnosis", method = RequestMethod.POST)
+    public String delPatientDiagnosis(@RequestParam(value = Parameters.PATIENT_DIAGNOSIS_ID, required = false) String patientDiagnosisId, HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
+        HttpSession session = request.getSession();
+        try {
+            if (patientDiagnosisId != null) {
+                Patient patient = patientService.getById(Integer.parseInt((String) session.getAttribute(Parameters.PATIENT_ID)));
+                patientDiagnosisService.delete(Integer.valueOf(patientDiagnosisId));
+                session.setAttribute(Parameters.PATIENT_DIAGNOSIS_LIST, patientDiagnosisService.getByPatient(patient));
+                redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.SUCCESS_OPERATION, null, locale));
+            } else {
+                redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.EMPTY_CHOICE, null, locale));
+            }
+            return "redirect:/showpatient";
+        } catch (DAOException e) {
+            return "redirect:/error";
+        }
+    }
+
+    @RequestMapping(value = "/delpatientdrug", method = RequestMethod.POST)
+    public String delPatientDrug(@RequestParam(value = Parameters.PATIENT_DRUG_ID, required = false) String patientDrugId, HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
+        HttpSession session = request.getSession();
+        try {
+            if (patientDrugId != null) {
+                Patient patient = patientService.getById(Integer.parseInt((String) session.getAttribute(Parameters.PATIENT_ID)));
+                patientDrugService.delete(Integer.valueOf(patientDrugId));
+                session.setAttribute(Parameters.PATIENT_DRUGS_LIST, patientDrugService.getByPatient(patient));
+                redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.SUCCESS_OPERATION, null, locale));
+            } else {
+                redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.EMPTY_CHOICE, null, locale));
+            }
+            return "redirect:/showpatient";
+        } catch (DAOException e) {
+            return "redirect:/error";
+        }
+    }
+
+    @RequestMapping(value = "/delpatientmedprocedure", method = RequestMethod.POST)
+    public String delPatientMedProcedure(@RequestParam(value = Parameters.PATIENT_MEDPROCEDURE_ID, required = false) String patientMedProcedureId, HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
+        HttpSession session = request.getSession();
+        try {
+            if (patientMedProcedureId != null) {
+                Patient patient = patientService.getById(Integer.parseInt((String) session.getAttribute(Parameters.PATIENT_ID)));
+                patientMedProcedureService.delete(Integer.valueOf(patientMedProcedureId));
+                session.setAttribute(Parameters.PATIENT_MEDPROCEDURES_LIST, patientMedProcedureService.getByPatient(patient));
+                redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.SUCCESS_OPERATION, null, locale));
+            } else {
+                redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.EMPTY_CHOICE, null, locale));
+            }
+            return "redirect:/showpatient";
         } catch (DAOException e) {
             return "redirect:/error";
         }

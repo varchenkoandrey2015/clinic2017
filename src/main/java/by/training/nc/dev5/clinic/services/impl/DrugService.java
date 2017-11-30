@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by user on 22.04.2017.
  */
-@Service
+@Service("drugS")
 public class DrugService implements IDrugService{
 
     private IDrugDAO drugDAO;
