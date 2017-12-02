@@ -66,14 +66,20 @@ public class PatientMySQLDAO implements IPatientDAO {
         EntityManager entityManager = HibernateUtil.getEntityManager();
         try {
             Patient entity = entityManager.find(Patient.class, id);
-            for(PatientDiagnosis patientDiagnosis:entity.getPatientDiagnoses()){
-                patientDiagnosisDAO.delete(patientDiagnosis.getPatientDiagnosisId());
+            if (entity.getPatientDiagnoses()!=null && entity.getPatientDiagnoses().size()!=0) {
+                for (PatientDiagnosis patientDiagnosis : entity.getPatientDiagnoses()) {
+                    patientDiagnosisDAO.delete(patientDiagnosis.getPatientDiagnosisId());
+                }
             }
-            for(PatientDrug patientDrug:entity.getPatientDrugs()){
-                patientDrugDAO.delete(patientDrug.getPatientDrugId());
+            if (entity.getPatientDrugs()!=null && entity.getPatientDrugs().size()!=0) {
+                for (PatientDrug patientDrug : entity.getPatientDrugs()) {
+                    patientDrugDAO.delete(patientDrug.getPatientDrugId());
+                }
             }
-            for(PatientMedProcedure patientMedProcedure:entity.getPatientMedProcedures()){
-                patientMedProcedureDAO.delete(patientMedProcedure.getPatientMedProcedureId());
+            if (entity.getPatientMedProcedures()!=null && entity.getPatientMedProcedures().size() != 0) {
+                for (PatientMedProcedure patientMedProcedure : entity.getPatientMedProcedures()) {
+                    patientMedProcedureDAO.delete(patientMedProcedure.getPatientMedProcedureId());
+                }
             }
             entity.setPatientDiagnoses(null);
             entity.setPatientDrugs(null);

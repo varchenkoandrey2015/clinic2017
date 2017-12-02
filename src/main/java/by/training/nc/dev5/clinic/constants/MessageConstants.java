@@ -5,6 +5,7 @@ package by.training.nc.dev5.clinic.constants;
  */
 public class MessageConstants {
     public static final String WRONG_LOGIN_OR_PASSWORD = "message.loginerror";
+    public static final String WRONG_PHONE = "message.wrong.phone";
     public static final String USER_EXISTS = "message.userexistserror";
     public static final String EMPTY_CHOICE = "message.emptychoice";
     public static final String SUCCESS_OPERATION = "message.successoperation";

@@ -40,7 +40,7 @@
                 <input class="input-field" type="text" name="patientAddress" value="${patientAddress}"/>
             </div>
             <div class="field">
-                <s:message code="patients.phone"/>
+                <s:message code="patients.phone"/> (Example:+37529XXXXXXX)
                 <input class="input-field" type="text" name="patientPhone" value="${patientPhone}"/>
             </div>
 

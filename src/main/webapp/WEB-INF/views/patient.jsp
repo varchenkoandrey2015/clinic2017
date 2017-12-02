@@ -85,6 +85,7 @@
                         <th><s:message code="prescribings.name"/></th>
                         <th><s:message code="prescribings.description"/></th>
                         <th><s:message code="prescribings.startdate"/></th>
+                        <th>Years</th>
                         <th><s:message code="prescribings.enddate"/></th>
                     </tr>
                     </thead>
@@ -104,6 +105,13 @@
                             </td>
                             <td>
                                 <c:out value="${ patientDiagnosis.startDate }"/>
+                            </td>
+                            <td>
+                                <%
+                                    String[] date = patientDiagnosis.getStartDate().split("\\.");
+                                    String year = String.valueOf(2017-Integer.parseInt(date[2]));
+                                %>
+                                <c:out value="<%=year%>"/>
                             </td>
                             <td>
                                 <c:out value="${ patientDiagnosis.endDate }"/>
