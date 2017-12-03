@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Parameter;
 import java.util.Locale;
 
 /**
@@ -86,6 +87,36 @@ public class MainController {
                 session.setAttribute(Parameters.PATIENT_DRUGS_LIST, patientDrugService.getByPatient(patient));
                 session.setAttribute(Parameters.PATIENT_MEDPROCEDURES_LIST, patientMedProcedureService.getByPatient(patient));
                 return pagePathManager.getProperty(ConfigConstants.SHOW_PATIENT);
+            } else {
+                redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.EMPTY_CHOICE, null, locale));
+                return "redirect:/menu";
+            }
+        } catch (DAOException e) {
+            return "redirect:/error";
+        }
+    }
+
+    @RequestMapping(value = "/report", method = RequestMethod.GET)
+    public String showReport(@RequestParam(value = Parameters.PATIENT_ID, required = false) String patientId,
+                              HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
+        HttpSession session = request.getSession();
+        if (patientId == null) {
+            patientId = (String) session.getAttribute(Parameters.PATIENT_ID);
+        }
+        try {
+            if (patientId != null) {
+                Patient patient = patientService.getById(Integer.parseInt(patientId));
+                session.setAttribute(Parameters.PATIENT_ID, patientId);
+                session.setAttribute(Parameters.PATIENT_FIRSTNAME, patient.getFirstName());
+                session.setAttribute(Parameters.PATIENT_MIDDLENAME, patient.getMiddleName());
+                session.setAttribute(Parameters.PATIENT_LASTNAME, patient.getLastName());
+                session.setAttribute(Parameters.PATIENT_GENDER, patient.getGender());
+                session.setAttribute(Parameters.PATIENT_ADDRESS, patient.getAddress());
+                session.setAttribute(Parameters.PATIENT_PHONE, patient.getPhone());
+                session.setAttribute(Parameters.PATIENT_DIAGNOSIS_LIST, patientDiagnosisService.getByPatient(patient));
+                session.setAttribute(Parameters.PATIENT_DRUGS_LIST, patientDrugService.getByPatient(patient));
+                session.setAttribute(Parameters.PATIENT_MEDPROCEDURES_LIST, patientMedProcedureService.getByPatient(patient));
+                return pagePathManager.getProperty(ConfigConstants.SHOW_REPORT);
             } else {
                 redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.EMPTY_CHOICE, null, locale));
                 return "redirect:/menu";

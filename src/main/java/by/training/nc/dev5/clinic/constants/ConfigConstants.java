@@ -14,6 +14,7 @@ public class ConfigConstants {
     public static final String ERROR_PAGE_PATH = "path.page.error";
     public static final String SHOW_PATIENT = "path.page.patient";
     public static final String SHOW_MENU = "path.page.menu";
+    public static final String SHOW_REPORT = "path.page.report";
 
     public static final String ADD_PATIENT = "path.page.add.patient";
     public static final String ADD_DIAGNOSIS = "path.page.add.diagnosis";

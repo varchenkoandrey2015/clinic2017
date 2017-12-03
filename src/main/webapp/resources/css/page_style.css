@@ -56,6 +56,7 @@ body{
 }
 
 .text-large{
+    font-weight: 700;
     margin-bottom: 10px;
 }
 .logoStyle{
@@ -93,6 +94,24 @@ body{
 .tabs ul li:hover{
     background:#d6d6d7;
 }
-
+.report-block{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.report-row{
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+}
+.report-item{
+    min-width: 150px;
+}
+.personal-info{
+    min-width: 200px;
+}
+.personal-info-title{
+    min-width: 125px;
+}
 
 

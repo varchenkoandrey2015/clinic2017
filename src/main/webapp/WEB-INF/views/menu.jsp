@@ -112,6 +112,7 @@
                         <input class="button" type="submit" value="${button}"
                                onclick= "document.choosePatientForm.action = '/showpatient';
                                 document.choosePatientForm.method = 'GET';
+                                document.choosePatientForm.target = '_self';
                                 document.choosePatientForm.submit()"/>
                     </div>
                     <div class="button-item">
@@ -122,12 +123,22 @@
                         <input class="button" type="submit" value="${button}"
                                onclick= "document.choosePatientForm.action = '/editpatient';
                                document.choosePatientForm.method = 'GET';
+                               document.choosePatientForm.target = '_self';
                                document.choosePatientForm.submit()"/>
                     </div>
                     <div class="button-item">
                         <s:message var="button" code="del.title"/>
                         <input class="button" type="submit" value="${button}"
-                               onclick= "document.choosePatientForm.action = '/delpatient';document.choosePatientForm.submit()"/>
+                               onclick= "document.choosePatientForm.action = '/delpatient';
+                               document.choosePatientForm.target = '_self';
+                               document.choosePatientForm.submit()"/>
+                    </div>
+                    <div class="button-item">
+                        <input class="button" type="submit" value="Сreate a report"
+                               onclick= "document.choosePatientForm.action = '/report';
+                               document.choosePatientForm.method = 'GET';
+                               document.choosePatientForm.target = '_blank';
+                               document.choosePatientForm.submit()"/>
                     </div>
                 </div>
             </form>
