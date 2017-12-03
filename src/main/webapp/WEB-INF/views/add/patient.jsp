@@ -11,6 +11,11 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/select2.min.css">
 </head>
 <body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#patientGender').select2();
+    });
+</script>
 <div class="container">
     <div class="header" align="left">
         <%@include file="../elements/header_with_logout.jsp" %>
@@ -33,8 +38,24 @@
 
             <div class="field">
                 <s:message code="patients.gender"/>
-                <input class="input-field" type="text" name="patientGender" value="${patientGender}"/>
+                <select class="input-field" name="patientGender" id="patientGender">
+                    <c:choose>
+                        <c:when test="${patientGender=='male'}">
+                            <option selected value="male"> male </option>
+                            <option value="female"> female </option>
+                        </c:when>
+                        <c:when test="${patientGender=='female'}">
+                            <option value="male"> male </option>
+                            <option selected value="female"> female </option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="male"> male </option>
+                            <option value="female"> female </option>
+                        </c:otherwise>
+                    </c:choose>
+                </select>
             </div>
+
             <div class="field">
                 <s:message code="patients.address"/>
                 <input class="input-field" type="text" name="patientAddress" value="${patientAddress}"/>

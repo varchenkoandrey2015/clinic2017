@@ -15,10 +15,100 @@
 <body>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#patientTable').DataTable();
-        $('#diagnosisTable').DataTable();
-        $('#drugTable').DataTable();
-        $('#medProcedureTable').DataTable();
+        $('#patientTable').DataTable(
+            {
+                initComplete: function () {
+                    this.api().columns().every(function () {
+                        var column = this;
+                        var select = $('<select class="table-select"><option value=""></option></select>')
+                            .appendTo($(column.footer()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                }
+            }
+        );
+        $('#diagnosisTable').DataTable(
+            {
+                initComplete: function () {
+                    this.api().columns().every(function () {
+                        var column = this;
+                        var select = $('<select class="table-select"><option value=""></option></select>')
+                            .appendTo($(column.footer()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                }
+            }
+        );
+        $('#drugTable').DataTable(
+            {
+                initComplete: function () {
+                    this.api().columns().every(function () {
+                        var column = this;
+                        var select = $('<select class="table-select"><option value=""></option></select>')
+                            .appendTo($(column.footer()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                }
+            }
+        );
+        $('#medProcedureTable').DataTable({
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select class="table-select"><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+        });
         $(".tabs").lightTabs();
     });
     (function ($) {
@@ -68,6 +158,7 @@
                 <table id="patientTable" class="display">
                     <thead>
                     <tr>
+                        <th></th>
                         <th><s:message code="patients.firstName"/></th>
                         <th><s:message code="patients.middleName"/></th>
                         <th><s:message code="patients.lastName"/></th>
@@ -76,30 +167,27 @@
                         <th><s:message code="patients.phone"/></th>
                     </tr>
                     </thead>
+                    <tfoot>
+                    <tr>
+                        <th></th>
+                        <th><s:message code="patients.firstName"/></th>
+                        <th><s:message code="patients.middleName"/></th>
+                        <th><s:message code="patients.lastName"/></th>
+                        <th><s:message code="patients.gender"/></th>
+                        <th><s:message code="patients.address"/></th>
+                        <th><s:message code="patients.phone"/></th>
+                    </tr>
+                    </tfoot>
                     <tbody>
                     <c:forEach var="patient" items="${patientsList}">
                         <tr>
-                            <td>
-                                <label>
-                                    <input type="radio" name="patientId" value="${ patient.patientId }"/>
-                                    <c:out value="${ patient.firstName }"/>
-                                </label>
-                            </td>
-                            <td>
-                                <c:out value="${ patient.middleName }"/>
-                            </td>
-                            <td>
-                                <c:out value="${ patient.lastName }"/>
-                            </td>
-                            <td>
-                                <c:out value="${ patient.gender }"/>
-                            </td>
-                            <td>
-                                <c:out value="${ patient.address }"/>
-                            </td>
-                            <td>
-                                <c:out value="${ patient.phone }"/>
-                            </td>
+                            <td><input type="radio" name="patientId" value="${ patient.patientId }"/></td>
+                            <td><c:out value="${ patient.firstName }"/></td>
+                            <td><c:out value="${ patient.middleName }"/></td>
+                            <td><c:out value="${ patient.lastName }"/></td>
+                            <td><c:out value="${ patient.gender }"/></td>
+                            <td><c:out value="${ patient.address }"/></td>
+                            <td><c:out value="${ patient.phone }"/></td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -110,7 +198,7 @@
                     <div class="button-item">
                         <s:message var="button" code="open.title"/>
                         <input class="button" type="submit" value="${button}"
-                               onclick= "document.choosePatientForm.action = '/showpatient';
+                               onclick="document.choosePatientForm.action = '/showpatient';
                                 document.choosePatientForm.method = 'GET';
                                 document.choosePatientForm.target = '_self';
                                 document.choosePatientForm.submit()"/>
@@ -121,7 +209,7 @@
                     <div class="button-item">
                         <s:message var="button" code="edit.title"/>
                         <input class="button" type="submit" value="${button}"
-                               onclick= "document.choosePatientForm.action = '/editpatient';
+                               onclick="document.choosePatientForm.action = '/editpatient';
                                document.choosePatientForm.method = 'GET';
                                document.choosePatientForm.target = '_self';
                                document.choosePatientForm.submit()"/>
@@ -129,13 +217,13 @@
                     <div class="button-item">
                         <s:message var="button" code="del.title"/>
                         <input class="button" type="submit" value="${button}"
-                               onclick= "document.choosePatientForm.action = '/delpatient';
+                               onclick="document.choosePatientForm.action = '/delpatient';
                                document.choosePatientForm.target = '_self';
                                document.choosePatientForm.submit()"/>
                     </div>
                     <div class="button-item">
                         <input class="button" type="submit" value="Сreate a report"
-                               onclick= "document.choosePatientForm.action = '/report';
+                               onclick="document.choosePatientForm.action = '/report';
                                document.choosePatientForm.method = 'GET';
                                document.choosePatientForm.target = '_blank';
                                document.choosePatientForm.submit()"/>
@@ -149,22 +237,24 @@
                 <table id="diagnosisTable" class="display">
                     <thead>
                     <tr>
+                        <th></th>
                         <th><s:message code="prescribings.name"/></th>
                         <th><s:message code="prescribings.description"/></th>
                     </tr>
                     </thead>
+                    <tfoot>
+                    <tr>
+                        <th></th>
+                        <th><s:message code="prescribings.name"/></th>
+                        <th><s:message code="prescribings.description"/></th>
+                    </tr>
+                    </tfoot>
                     <tbody>
                     <c:forEach var="diagnosis" items="${allDiagnosises}">
                         <tr>
-                            <td>
-                                <label>
-                                    <input type="radio" name="diagnosisId" value="${ diagnosis.diagnosisId }"/>
-                                    <c:out value="${ diagnosis.name }"/>
-                                </label>
-                            </td>
-                            <td>
-                                <c:out value="${ diagnosis.description }"/>
-                            </td>
+                            <td><input type="radio" name="diagnosisId" value="${ diagnosis.diagnosisId }"/></td>
+                            <td><c:out value="${ diagnosis.name }"/></td>
+                            <td><c:out value="${ diagnosis.description }"/></td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -180,13 +270,13 @@
                     <div class="button-item">
                         <s:message var="button" code="edit.title"/>
                         <input class="button" type="submit" value="${button}"
-                               onclick= "document.diagnosisListForm.action = '/editdiagnosis';document.diagnosisListForm.submit()"/>
+                               onclick="document.diagnosisListForm.action = '/editdiagnosis';document.diagnosisListForm.submit()"/>
                     </div>
 
                     <div class="button-item">
                         <s:message var="button" code="del.title"/>
                         <input class="button" type="submit" value="${button}"
-                               onclick= "document.diagnosisListForm.action = '/deldiagnosis';document.diagnosisListForm.submit()"/>
+                               onclick="document.diagnosisListForm.action = '/deldiagnosis';document.diagnosisListForm.submit()"/>
                     </div>
                 </div>
             </form>
@@ -199,22 +289,23 @@
                 <table id="drugTable" class="display">
                     <thead>
                     <tr>
+                        <th></th>
                         <th><s:message code="prescribings.name"/></th>
                         <th><s:message code="prescribings.description"/></th>
                     </tr>
-                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th></th>
+                        <th><s:message code="prescribings.name"/></th>
+                        <th><s:message code="prescribings.description"/></th>
+                    </tr>
+                    </tfoot>
                     <tbody>
                     <c:forEach var="drug" items="${allDrugs}">
                         <tr>
-                            <td>
-                                <label>
-                                    <input type="radio" name="drugId" value="${ drug.drugId }"/>
-                                    <c:out value="${ drug.name }"/>
-                                </label>
-                            </td>
-                            <td>
-                                <c:out value="${ drug.description }"/>
-                            </td>
+                            <td><input type="radio" name="drugId" value="${ drug.drugId }"/></td>
+                            <td><c:out value="${ drug.name }"/></td>
+                            <td><c:out value="${ drug.description }"/></td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -226,12 +317,12 @@
                     <div class="button-item">
                         <s:message var="button" code="edit.title"/>
                         <input class="button" type="submit" value="${button}"
-                               onclick= "document.drugListForm.action = '/editdrug';document.drugListForm.submit()"/>
+                               onclick="document.drugListForm.action = '/editdrug';document.drugListForm.submit()"/>
                     </div>
                     <div class="button-item">
                         <s:message var="button" code="del.title"/>
                         <input class="button" type="submit" value="${button}"
-                               onclick= "document.drugListForm.action = '/deldrug';document.drugListForm.submit()"/>
+                               onclick="document.drugListForm.action = '/deldrug';document.drugListForm.submit()"/>
                     </div>
                 </div>
             </form>
@@ -244,22 +335,24 @@
                 <table id="medProcedureTable" class="display">
                     <thead>
                     <tr>
+                        <th></th>
                         <th><s:message code="prescribings.name"/></th>
                         <th><s:message code="prescribings.description"/></th>
                     </tr>
                     </thead>
+                    <tfoot>
+                    <tr>
+                        <th></th>
+                        <th><s:message code="prescribings.name"/></th>
+                        <th><s:message code="prescribings.description"/></th>
+                    </tr>
+                    </tfoot>
                     <tbody>
                     <c:forEach var="medProcedure" items="${allMedProcedures}">
                         <tr>
-                            <td>
-                                <label>
-                                    <input type="radio" name="medProcedureId" value="${ medProcedure.medProcedureId }"/>
-                                    <c:out value="${ medProcedure.name }"/>
-                                </label>
-                            </td>
-                            <td>
-                                <c:out value="${ medProcedure.description }"/>
-                            </td>
+                            <td><input type="radio" name="medProcedureId" value="${ medProcedure.medProcedureId }"/></td>
+                            <td><c:out value="${ medProcedure.name }"/></td>
+                            <td><c:out value="${ medProcedure.description }"/></td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -271,12 +364,12 @@
                     <div class="button-item">
                         <s:message var="button" code="edit.title"/>
                         <input class="button" type="submit" value="${button}"
-                               onclick= "document.medProcedureListForm.action = '/editmedprocedure';document.medProcedureListForm.submit()"/>
+                               onclick="document.medProcedureListForm.action = '/editmedprocedure';document.medProcedureListForm.submit()"/>
                     </div>
                     <div class="button-item">
                         <s:message var="button" code="del.title"/>
                         <input class="button" type="submit" value="${button}"
-                               onclick= "document.medProcedureListForm.action = '/delmedprocedure';document.medProcedureListForm.submit()"/>
+                               onclick="document.medProcedureListForm.action = '/delmedprocedure';document.medProcedureListForm.submit()"/>
                     </div>
                 </div>
             </form>
