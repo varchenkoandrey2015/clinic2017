@@ -14,6 +14,15 @@
 </head>
 <body>
 <script type="text/javascript">
+    function filter() {
+        searchText = new RegExp("\\b" + $('#global_filter').val() + "\\b","g");
+        $.each($("#diagnosisTable tbody tr"), function() {
+            if($(this).text().toLowerCase().match(searchText))
+                $(this).show();
+            else
+                $(this).hide();
+        });
+    }
     $(document).ready(function () {
         $('#patientTable').DataTable(
             {
@@ -41,6 +50,7 @@
         );
         $('#diagnosisTable').DataTable(
             {
+                filter: false,
                 initComplete: function () {
                     this.api().columns().every(function () {
                         var column = this;
@@ -63,6 +73,9 @@
                 }
             }
         );
+        $('input.search').on( 'click', function () {
+            filter();
+        } );
         $('#drugTable').DataTable(
             {
                 initComplete: function () {
@@ -111,6 +124,7 @@
         });
         $(".tabs").lightTabs();
     });
+
     (function ($) {
         jQuery.fn.lightTabs = function (options) {
 
@@ -234,6 +248,8 @@
 
         <div class="container-item">
             <form name="diagnosisListForm" method="POST">
+                <input type="text" class="global_filter" id="global_filter"/>
+                <input type="button" class="search" value="search"/>
                 <table id="diagnosisTable" class="display">
                     <thead>
                     <tr>
