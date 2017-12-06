@@ -97,33 +97,14 @@ public class MainController {
     }
 
     @RequestMapping(value = "/report", method = RequestMethod.GET)
-    public String showReport(@RequestParam(value = Parameters.PATIENT_ID, required = false) String patientId,
-                              HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
+    public String showReport(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (patientId == null) {
-            patientId = (String) session.getAttribute(Parameters.PATIENT_ID);
-        }
-        try {
-            if (patientId != null) {
-                Patient patient = patientService.getById(Integer.parseInt(patientId));
-                session.setAttribute(Parameters.PATIENT_ID, patientId);
-                session.setAttribute(Parameters.PATIENT_FIRSTNAME, patient.getFirstName());
-                session.setAttribute(Parameters.PATIENT_MIDDLENAME, patient.getMiddleName());
-                session.setAttribute(Parameters.PATIENT_LASTNAME, patient.getLastName());
-                session.setAttribute(Parameters.PATIENT_GENDER, patient.getGender());
-                session.setAttribute(Parameters.PATIENT_ADDRESS, patient.getAddress());
-                session.setAttribute(Parameters.PATIENT_PHONE, patient.getPhone());
-                session.setAttribute(Parameters.PATIENT_DIAGNOSIS_LIST, patientDiagnosisService.getByPatient(patient));
-                session.setAttribute(Parameters.PATIENT_DRUGS_LIST, patientDrugService.getByPatient(patient));
-                session.setAttribute(Parameters.PATIENT_MEDPROCEDURES_LIST, patientMedProcedureService.getByPatient(patient));
-                return pagePathManager.getProperty(ConfigConstants.SHOW_REPORT);
-            } else {
-                redirectAttributes.addFlashAttribute(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.EMPTY_CHOICE, null, locale));
-                return "redirect:/menu";
-            }
-        } catch (DAOException e) {
+        try{
+            session.setAttribute(Parameters.PATIENTS_LIST, patientService.getAll());
+        }catch (DAOException e){
             return "redirect:/error";
         }
+        return pagePathManager.getProperty(ConfigConstants.SHOW_REPORT);
     }
 
     @RequestMapping(value = "/addpatient", method = RequestMethod.GET)
@@ -172,7 +153,7 @@ public class MainController {
                     model.put(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.EMPTY_FIELDS, null, locale));
                     pagePath = pagePathManager.getProperty(ConfigConstants.ADD_PATIENT);
                 }
-            }else{
+            } else {
                 model.put(Parameters.OPERATION_MESSAGE, messageSource.getMessage(MessageConstants.WRONG_PHONE, null, locale));
                 pagePath = pagePathManager.getProperty(ConfigConstants.ADD_PATIENT);
             }

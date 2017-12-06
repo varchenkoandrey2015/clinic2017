@@ -107,11 +107,12 @@ body{
 .report-item{
     min-width: 150px;
 }
-.personal-info{
-    min-width: 200px;
+.patient-info-report{
+    margin-left: 50px;
 }
-.personal-info-title{
-    min-width: 125px;
+.patient-report{
+    border-bottom: solid 1px ;
+    border-bottom-color: lightgray;
+    margin-bottom: 50px;
 }
-
 

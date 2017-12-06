@@ -17,10 +17,6 @@
     <link href="${pageContext.request.contextPath}/resources/css/page_style.css" rel="stylesheet">
 </head>
 <body>
-<script type="text/javascript">
-    $(document).ready(function () {
-    });
-</script>
 <%
     ApplicationContext aC = RequestContextUtils.getWebApplicationContext(request);
     IDiagnosisService diagnosisService = (IDiagnosisService) aC.getBean("diagS");
@@ -31,106 +27,100 @@
 <div class="header" align="left">
     <%@include file="elements/header.jsp" %>
 </div>
+<div class="patient-report">
+    <div class="text-large">Amount of patients: ${patientsList.size()}</div>
+</div>
+<c:forEach items="${patientsList}" var="patient">
+    <div class="patient-report">
+        <div class="text-large">${patient.firstName} ${patient.middleName} ${patient.lastName}</div>
+        <div class="patient-info-report">
+            <div class="button-row"><div class="text-large">Gender: </div>${patient.gender}</div>
+            <div class="button-row">  <div class="text-large">Address: </div>${patient.address}</div>
+            <div class="button-row"><div class="text-large">Phone: </div>${patient.phone}</div>
 
-<div class="report-block">
-    <div class="text-large">Personal Information</div>
-    <div class="report-row">
-        <div class="personal-info-title"><u>First Name:</u></div>
-        <div class="personal-info">${patientFirstName}</div>
-        <div class="personal-info-title"><u>Gender:</u></div>
-        <div class="personal-info">${patientGender}</div>
-    </div>
-    <div class="report-row">
-        <div class="personal-info-title"><u>Middle Name:</u></div>
-        <div class="personal-info">${patientMiddleName}</div>
-        <div class="personal-info-title"><u>Address:</u></div>
-        <div class="personal-info">${patientAddress}</div>
-    </div>
-    <div class="report-row">
-        <div class="personal-info-title"><u>Last Name:</u></div>
-        <div class="personal-info">${patientLastName}</div>
-        <div class="personal-info-title"><u>Phone:</u></div>
-        <div class="personal-info">${patientPhone}</div>
-    </div>
-</div>
-<div class="report-block">
-    <div class="text-large">Diagnosises</div>
-    <div class="report-row">
-        <div class="report-item"><u>Name</u></div>
-        <div class="report-item"><u>Description</u></div>
-        <div class="report-item"><u>Start Date</u></div>
-        <div class="report-item"><u>End Date</u></div>
-    </div>
-    <c:forEach var="patientDiagnosis" items="${patientDiagnosises}">
-        <%PatientDiagnosis patientDiagnosis = (PatientDiagnosis) pageContext.getAttribute("patientDiagnosis");%>
-        <div class="report-row">
-            <div class="report-item">
-                <c:out value="<%=diagnosisService.getById(patientDiagnosis.getDiagnosis().getDiagnosisId()).getName()%>"/>
+            <div class="report-block">
+                <div class="text-large">Diagnosises</div>
+                <div class="report-row">
+                    <div class="report-item"><u>Name</u></div>
+                    <div class="report-item"><u>Description</u></div>
+                    <div class="report-item"><u>Start Date</u></div>
+                    <div class="report-item"><u>End Date</u></div>
+                </div>
+                <c:forEach var="patientDiagnosis" items="${patient.patientDiagnoses}">
+                    <%PatientDiagnosis patientDiagnosis = (PatientDiagnosis) pageContext.getAttribute("patientDiagnosis");%>
+                    <div class="report-row">
+                        <div class="report-item">
+                            <c:out value="<%=diagnosisService.getById(patientDiagnosis.getDiagnosis().getDiagnosisId()).getName()%>"/>
+                        </div>
+                        <div class="report-item">
+                            <c:out value="<%=diagnosisService.getById(patientDiagnosis.getDiagnosis().getDiagnosisId()).getDescription()%>"/>
+                        </div>
+                        <div class="report-item">
+                            <c:out value="${ patientDiagnosis.startDate }"/>
+                        </div>
+                        <div class="report-item">
+                            <c:out value="${ patientDiagnosis.endDate }"/>
+                        </div>
+                    </div>
+                </c:forEach>
             </div>
-            <div class="report-item">
-                <c:out value="<%=diagnosisService.getById(patientDiagnosis.getDiagnosis().getDiagnosisId()).getDescription()%>"/>
+
+            <div class="report-block">
+                <div class="text-large">Drugs</div>
+                <div class="report-row">
+                    <div class="report-item"><u>Name</u></div>
+                    <div class="report-item"><u>Description</u></div>
+                    <div class="report-item"><u>Start Date</u></div>
+                    <div class="report-item"><u>Days</u></div>
+                </div>
+                <c:forEach var="patientDrug" items="${patient.patientDrugs}">
+                    <%PatientDrug patientDrug = (PatientDrug) pageContext.getAttribute("patientDrug");%>
+                    <div class="report-row">
+                        <div class="report-item">
+                            <c:out value="<%=drugService.getById(patientDrug.getDrug().getDrugId()).getName()%>"/>
+                        </div>
+                        <div class="report-item">
+                            <c:out value="<%=drugService.getById(patientDrug.getDrug().getDrugId()).getDescription()%>"/>
+                        </div>
+                        <div class="report-item">
+                            <c:out value="${ patientDrug.startDate }"/>
+                        </div>
+                        <div class="report-item">
+                            <c:out value="${ patientDrug.days }"/>
+                        </div>
+                    </div>
+                </c:forEach>
             </div>
-            <div class="report-item">
-                <c:out value="${ patientDiagnosis.startDate }"/>
-            </div>
-            <div class="report-item">
-                <c:out value="${ patientDiagnosis.endDate }"/>
-            </div>
-        </div>
-    </c:forEach>
-</div>
-<div class="report-block">
-    <div class="text-large">Drugs</div>
-    <div class="report-row">
-        <div class="report-item"><u>Name</u></div>
-        <div class="report-item"><u>Description</u></div>
-        <div class="report-item"><u>Start Date</u></div>
-        <div class="report-item"><u>Days</u></div>
-    </div>
-    <c:forEach var="patientDrug" items="${patientDrugs}">
-        <%PatientDrug patientDrug = (PatientDrug) pageContext.getAttribute("patientDrug");%>
-        <div class="report-row">
-            <div class="report-item">
-                <c:out value="<%=drugService.getById(patientDrug.getDrug().getDrugId()).getName()%>"/>
-            </div>
-            <div class="report-item">
-                <c:out value="<%=drugService.getById(patientDrug.getDrug().getDrugId()).getDescription()%>"/>
-            </div>
-            <div class="report-item">
-                <c:out value="${ patientDrug.startDate }"/>
-            </div>
-            <div class="report-item">
-                <c:out value="${ patientDrug.days }"/>
-            </div>
-        </div>
-    </c:forEach>
-</div>
-<div class="report-block">
-    <div class="text-large">Procedures</div>
-    <div class="report-row">
-        <div class="report-item"><u>Name</u></div>
-        <div class="report-item"><u>Description</u></div>
-        <div class="report-item"><u>Start Date</u></div>
-        <div class="report-item"><u>Count</u></div>
-    </div>
-    <c:forEach var="patientMedProcedure" items="${patientMedProcedures}">
-        <%PatientMedProcedure patientMedProcedure = (PatientMedProcedure) pageContext.getAttribute("patientMedProcedure");%>
-        <div class="report-row">
-            <div class="report-item">
-                <c:out value="<%=medProcedureService.getById(patientMedProcedure.getMedProcedure().getMedProcedureId()).getName()%>"/>
-            </div>
-            <div class="report-item">
-                <c:out value="<%=medProcedureService.getById(patientMedProcedure.getMedProcedure().getMedProcedureId()).getDescription()%>"/>
-            </div>
-            <div class="report-item">
-                <c:out value="${ patientMedProcedure.startDate }"/>
-            </div>
-            <div class="report-item">
-                <c:out value="${ patientMedProcedure.count }"/>
+
+            <div class="report-block">
+                <div class="text-large">Procedures</div>
+                <div class="report-row">
+                    <div class="report-item"><u>Name</u></div>
+                    <div class="report-item"><u>Description</u></div>
+                    <div class="report-item"><u>Start Date</u></div>
+                    <div class="report-item"><u>Count</u></div>
+                </div>
+                <c:forEach var="patientMedProcedure" items="${patient.patientMedProcedures}">
+                    <%PatientMedProcedure patientMedProcedure = (PatientMedProcedure) pageContext.getAttribute("patientMedProcedure");%>
+                    <div class="report-row">
+                        <div class="report-item">
+                            <c:out value="<%=medProcedureService.getById(patientMedProcedure.getMedProcedure().getMedProcedureId()).getName()%>"/>
+                        </div>
+                        <div class="report-item">
+                            <c:out value="<%=medProcedureService.getById(patientMedProcedure.getMedProcedure().getMedProcedureId()).getDescription()%>"/>
+                        </div>
+                        <div class="report-item">
+                            <c:out value="${ patientMedProcedure.startDate }"/>
+                        </div>
+                        <div class="report-item">
+                            <c:out value="${ patientMedProcedure.count }"/>
+                        </div>
+                    </div>
+                </c:forEach>
             </div>
         </div>
-    </c:forEach>
-</div>
+    </div>
+</c:forEach>
 
 <div class="footer" align="center">
     <%@include file="elements/footer.jsp" %>
